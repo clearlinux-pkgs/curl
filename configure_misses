@@ -54,6 +54,7 @@ Configure miss: libidn2 options with pkg-config
 Configure miss: libngtcp2 options with pkg-config
 Configure miss: libngtcp2 options with pkg-config
 Configure miss: library containing gsasl_init
+Configure miss: library containing gsasl_init
 Configure miss: library containing psl_builtin
 Configure miss: library containing psl_builtin
 Configure miss: libressl
@@ -95,7 +96,8 @@ Configure miss: whether to enable Secure Transport
 Configure miss: whether to enable Secure Transport
 Configure miss: whether to enable Windows native IDN (Windows native builds only)
 Configure miss: whether to enable Windows native IDN (Windows native builds only)
-Configure miss: whether to enable Windows native SSL/TLS (Windows native builds only)
+Configure miss: whether to enable Windows native SSL/TLS
+Configure miss: whether to enable Windows native SSL/TLS
 Configure miss: whether to enable c-ares for DNS lookups
 Configure miss: whether to enable c-ares for DNS lookups
 Configure miss: whether to enable compiler warnings as errors
@@ -106,8 +108,8 @@ Configure miss: whether to enable debug build options
 Configure miss: whether to enable debug build options
 Configure miss: whether to enable strict compiler warnings
 Configure miss: whether to enable strict compiler warnings
-Configure miss: whether to support HSTS
-Configure miss: whether to support HSTS
+Configure miss: whether to link macOS SystemConfiguration framework
+Configure miss: whether to link macOS SystemConfiguration framework
 Configure miss: whether to support alt-svc
 Configure miss: whether to support alt-svc
 Configure miss: whether to support gopher
