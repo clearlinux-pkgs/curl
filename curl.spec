@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x5CC908FDB71E12C2 (daniel@haxx.se)
 #
 Name     : curl
-Version  : 7.77.0
-Release  : 112
-URL      : https://github.com/curl/curl/releases/download/curl-7_77_0/curl-7.77.0.tar.xz
-Source0  : https://github.com/curl/curl/releases/download/curl-7_77_0/curl-7.77.0.tar.xz
-Source1  : https://github.com/curl/curl/releases/download/curl-7_77_0/curl-7.77.0.tar.xz.asc
+Version  : 7.78.0
+Release  : 113
+URL      : https://github.com/curl/curl/releases/download/curl-7_78_0/curl-7.78.0.tar.xz
+Source0  : https://github.com/curl/curl/releases/download/curl-7_78_0/curl-7.78.0.tar.xz
+Source1  : https://github.com/curl/curl/releases/download/curl-7_78_0/curl-7.78.0.tar.xz.asc
 Summary  : Command line tool and library for transferring data with URLs
 Group    : Development/Tools
 License  : MIT
@@ -129,15 +129,15 @@ man components for the curl package.
 
 
 %prep
-%setup -q -n curl-7.77.0
-cd %{_builddir}/curl-7.77.0
+%setup -q -n curl-7.78.0
+cd %{_builddir}/curl-7.78.0
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
 pushd ..
-cp -a curl-7.77.0 build32
+cp -a curl-7.78.0 build32
 popd
 
 %build
@@ -145,7 +145,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1622048158
+export SOURCE_DATE_EPOCH=1626876210
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
@@ -207,10 +207,10 @@ cd ../build32;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1622048158
+export SOURCE_DATE_EPOCH=1626876210
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
-cp %{_builddir}/curl-7.77.0/COPYING %{buildroot}/usr/share/package-licenses/curl/73bcd04aed1c45b611fd34aaa29e72069a49049b
+cp %{_builddir}/curl-7.78.0/COPYING %{buildroot}/usr/share/package-licenses/curl/73bcd04aed1c45b611fd34aaa29e72069a49049b
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
