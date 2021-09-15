@@ -2,6 +2,5 @@ libc.so.6
 libcrypto.so.1.1
 libdbus-1.so.3
 libnghttp2.so.14
-libpthread.so.0
 libssl.so.1.1
 libz.so.1
