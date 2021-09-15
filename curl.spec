@@ -6,7 +6,7 @@
 #
 Name     : curl
 Version  : 7.79.0
-Release  : 114
+Release  : 115
 URL      : https://github.com/curl/curl/releases/download/curl-7_79_0/curl-7.79.0.tar.xz
 Source0  : https://github.com/curl/curl/releases/download/curl-7_79_0/curl-7.79.0.tar.xz
 Source1  : https://github.com/curl/curl/releases/download/curl-7_79_0/curl-7.79.0.tar.xz.asc
@@ -54,6 +54,7 @@ Patch1: 0001-Remove-use-of-DES.patch
 Patch2: 0002-Add-pacrunner-call-for-autoproxy-resolution.patch
 Patch3: 0003-Check-the-state-file-pacdiscovery-sets.patch
 Patch4: 0004-Avoid-stripping-the-g-option.patch
+Patch5: 0005-Open-library-file-descriptors-with-O_CLOEXEC.patch
 
 %description
 curl is used in command lines or scripts to transfer data. It is also used in
@@ -134,6 +135,7 @@ cd %{_builddir}/curl-7.79.0
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 pushd ..
 cp -a curl-7.79.0 build32
 popd
@@ -143,7 +145,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1631721533
+export SOURCE_DATE_EPOCH=1631728580
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
@@ -205,7 +207,7 @@ cd ../build32;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1631721533
+export SOURCE_DATE_EPOCH=1631728580
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
 cp %{_builddir}/curl-7.79.0/COPYING %{buildroot}/usr/share/package-licenses/curl/73bcd04aed1c45b611fd34aaa29e72069a49049b
