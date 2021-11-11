@@ -61,6 +61,7 @@ Configure miss: libressl
 Configure miss: libressl
 Configure miss: memory.h
 Configure miss: memory.h
+Configure miss: mit-krb5-gssapi options with pkg-config
 Configure miss: netinet/in6.h
 Configure miss: netinet/in6.h
 Configure miss: proto/bsdsocket.h

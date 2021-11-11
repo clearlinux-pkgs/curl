@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x5CC908FDB71E12C2 (daniel@haxx.se)
 #
 Name     : curl
-Version  : 7.79.1
-Release  : 116
-URL      : https://github.com/curl/curl/releases/download/curl-7_79_1/curl-7.79.1.tar.xz
-Source0  : https://github.com/curl/curl/releases/download/curl-7_79_1/curl-7.79.1.tar.xz
-Source1  : https://github.com/curl/curl/releases/download/curl-7_79_1/curl-7.79.1.tar.xz.asc
+Version  : 7.80.0
+Release  : 117
+URL      : https://github.com/curl/curl/releases/download/curl-7_80_0/curl-7.80.0.tar.xz
+Source0  : https://github.com/curl/curl/releases/download/curl-7_80_0/curl-7.80.0.tar.xz
+Source1  : https://github.com/curl/curl/releases/download/curl-7_80_0/curl-7.80.0.tar.xz.asc
 Summary  : Command line tool and library for transferring data with URLs
 Group    : Development/Tools
 License  : MIT
@@ -129,15 +129,15 @@ man components for the curl package.
 
 
 %prep
-%setup -q -n curl-7.79.1
-cd %{_builddir}/curl-7.79.1
+%setup -q -n curl-7.80.0
+cd %{_builddir}/curl-7.80.0
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
 pushd ..
-cp -a curl-7.79.1 build32
+cp -a curl-7.80.0 build32
 popd
 
 %build
@@ -145,7 +145,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1632323402
+export SOURCE_DATE_EPOCH=1636604765
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
@@ -171,7 +171,7 @@ export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno
 --enable-negotiate --with-gssapi=/usr
 make  %{?_smp_mflags}
 pushd ../build32/
-export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig:/usr/share/pkgconfig"
 export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
 export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
 export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
@@ -207,10 +207,10 @@ cd ../build32;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1632323402
+export SOURCE_DATE_EPOCH=1636604765
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
-cp %{_builddir}/curl-7.79.1/COPYING %{buildroot}/usr/share/package-licenses/curl/73bcd04aed1c45b611fd34aaa29e72069a49049b
+cp %{_builddir}/curl-7.80.0/COPYING %{buildroot}/usr/share/package-licenses/curl/73bcd04aed1c45b611fd34aaa29e72069a49049b
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -458,6 +458,7 @@ popd
 /usr/share/man/man3/CURLOPT_MAXCONNECTS.3
 /usr/share/man/man3/CURLOPT_MAXFILESIZE.3
 /usr/share/man/man3/CURLOPT_MAXFILESIZE_LARGE.3
+/usr/share/man/man3/CURLOPT_MAXLIFETIME_CONN.3
 /usr/share/man/man3/CURLOPT_MAXREDIRS.3
 /usr/share/man/man3/CURLOPT_MAX_RECV_SPEED_LARGE.3
 /usr/share/man/man3/CURLOPT_MAX_SEND_SPEED_LARGE.3
@@ -484,6 +485,8 @@ popd
 /usr/share/man/man3/CURLOPT_POSTQUOTE.3
 /usr/share/man/man3/CURLOPT_POSTREDIR.3
 /usr/share/man/man3/CURLOPT_PREQUOTE.3
+/usr/share/man/man3/CURLOPT_PREREQDATA.3
+/usr/share/man/man3/CURLOPT_PREREQFUNCTION.3
 /usr/share/man/man3/CURLOPT_PRE_PROXY.3
 /usr/share/man/man3/CURLOPT_PRIVATE.3
 /usr/share/man/man3/CURLOPT_PROGRESSDATA.3
@@ -556,6 +559,7 @@ popd
 /usr/share/man/man3/CURLOPT_SSH_AUTH_TYPES.3
 /usr/share/man/man3/CURLOPT_SSH_COMPRESSION.3
 /usr/share/man/man3/CURLOPT_SSH_HOST_PUBLIC_KEY_MD5.3
+/usr/share/man/man3/CURLOPT_SSH_HOST_PUBLIC_KEY_SHA256.3
 /usr/share/man/man3/CURLOPT_SSH_KEYDATA.3
 /usr/share/man/man3/CURLOPT_SSH_KEYFUNCTION.3
 /usr/share/man/man3/CURLOPT_SSH_KNOWNHOSTS.3
@@ -697,6 +701,7 @@ popd
 /usr/share/man/man3/curl_url_dup.3
 /usr/share/man/man3/curl_url_get.3
 /usr/share/man/man3/curl_url_set.3
+/usr/share/man/man3/curl_url_strerror.3
 /usr/share/man/man3/curl_version.3
 /usr/share/man/man3/curl_version_info.3
 /usr/share/man/man3/libcurl-easy.3
