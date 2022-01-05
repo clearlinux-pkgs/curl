@@ -18,3 +18,5 @@ openssl-dev32
 pkg-config
 zlib-dev
 zlib-dev32
+zstd-dev
+zstd-dev32

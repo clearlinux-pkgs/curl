@@ -8,9 +8,6 @@ Configure miss: RAND_egd
 Configure miss: RAND_egd
 Configure miss: RTMP_Init in -lrtmp
 Configure miss: RTMP_Init in -lrtmp
-Configure miss: SSLv2_client_method
-Configure miss: SSLv2_client_method
-Configure miss: ZSTD_createDStream in -lzstd
 Configure miss: brotli/decode.h
 Configure miss: brotli/decode.h
 Configure miss: clock_gettime in libraries

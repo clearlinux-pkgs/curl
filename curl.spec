@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x5CC908FDB71E12C2 (daniel@haxx.se)
 #
 Name     : curl
-Version  : 7.80.0
-Release  : 117
-URL      : https://github.com/curl/curl/releases/download/curl-7_80_0/curl-7.80.0.tar.xz
-Source0  : https://github.com/curl/curl/releases/download/curl-7_80_0/curl-7.80.0.tar.xz
-Source1  : https://github.com/curl/curl/releases/download/curl-7_80_0/curl-7.80.0.tar.xz.asc
+Version  : 7.81.0
+Release  : 118
+URL      : https://github.com/curl/curl/releases/download/curl-7_81_0/curl-7.81.0.tar.xz
+Source0  : https://github.com/curl/curl/releases/download/curl-7_81_0/curl-7.81.0.tar.xz
+Source1  : https://github.com/curl/curl/releases/download/curl-7_81_0/curl-7.81.0.tar.xz.asc
 Summary  : Command line tool and library for transferring data with URLs
 Group    : Development/Tools
 License  : MIT
@@ -50,6 +50,7 @@ BuildRequires : pkg-config-dev
 BuildRequires : zlib-dev
 BuildRequires : zlib-dev32
 BuildRequires : zstd-dev
+BuildRequires : zstd-dev32
 Patch1: 0001-Remove-use-of-DES.patch
 Patch2: 0002-Add-pacrunner-call-for-autoproxy-resolution.patch
 Patch3: 0003-Check-the-state-file-pacdiscovery-sets.patch
@@ -129,15 +130,15 @@ man components for the curl package.
 
 
 %prep
-%setup -q -n curl-7.80.0
-cd %{_builddir}/curl-7.80.0
+%setup -q -n curl-7.81.0
+cd %{_builddir}/curl-7.81.0
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
 pushd ..
-cp -a curl-7.80.0 build32
+cp -a curl-7.81.0 build32
 popd
 
 %build
@@ -145,7 +146,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1636604765
+export SOURCE_DATE_EPOCH=1641407630
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
@@ -207,10 +208,10 @@ cd ../build32;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1636604765
+export SOURCE_DATE_EPOCH=1641407630
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
-cp %{_builddir}/curl-7.80.0/COPYING %{buildroot}/usr/share/package-licenses/curl/73bcd04aed1c45b611fd34aaa29e72069a49049b
+cp %{_builddir}/curl-7.81.0/COPYING %{buildroot}/usr/share/package-licenses/curl/73bcd04aed1c45b611fd34aaa29e72069a49049b
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -463,6 +464,7 @@ popd
 /usr/share/man/man3/CURLOPT_MAX_RECV_SPEED_LARGE.3
 /usr/share/man/man3/CURLOPT_MAX_SEND_SPEED_LARGE.3
 /usr/share/man/man3/CURLOPT_MIMEPOST.3
+/usr/share/man/man3/CURLOPT_MIME_OPTIONS.3
 /usr/share/man/man3/CURLOPT_NETRC.3
 /usr/share/man/man3/CURLOPT_NETRC_FILE.3
 /usr/share/man/man3/CURLOPT_NEW_DIRECTORY_PERMS.3
@@ -629,6 +631,11 @@ popd
 /usr/share/man/man3/CURLOPT_XFERINFODATA.3
 /usr/share/man/man3/CURLOPT_XFERINFOFUNCTION.3
 /usr/share/man/man3/CURLOPT_XOAUTH2_BEARER.3
+/usr/share/man/man3/CURLSHOPT_LOCKFUNC.3
+/usr/share/man/man3/CURLSHOPT_SHARE.3
+/usr/share/man/man3/CURLSHOPT_UNLOCKFUNC.3
+/usr/share/man/man3/CURLSHOPT_UNSHARE.3
+/usr/share/man/man3/CURLSHOPT_USERDATA.3
 /usr/share/man/man3/curl_easy_cleanup.3
 /usr/share/man/man3/curl_easy_duphandle.3
 /usr/share/man/man3/curl_easy_escape.3
