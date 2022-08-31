@@ -65,9 +65,9 @@ index 37b6c0e..e6f0897 100644
 +#include <dbus/dbus.h>
 +#endif /* CURL_DISABLE_PROXY */
 +
+ #include "doh.h"
  #include "urldata.h"
  #include "netrc.h"
- 
 @@ -138,6 +143,7 @@ bool curl_win32_idn_to_ascii(const char *in, char **out);
  #include "memdebug.h"
  

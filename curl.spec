@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x5CC908FDB71E12C2 (daniel@haxx.se)
 #
 Name     : curl
-Version  : 7.84.0
-Release  : 122
-URL      : https://github.com/curl/curl/releases/download/curl-7_84_0/curl-7.84.0.tar.xz
-Source0  : https://github.com/curl/curl/releases/download/curl-7_84_0/curl-7.84.0.tar.xz
-Source1  : https://github.com/curl/curl/releases/download/curl-7_84_0/curl-7.84.0.tar.xz.asc
+Version  : 7.85.0
+Release  : 123
+URL      : https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.xz
+Source0  : https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.xz
+Source1  : https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.xz.asc
 Summary  : Command line tool and library for transferring data with URLs
 Group    : Development/Tools
 License  : MIT
@@ -130,15 +130,15 @@ man components for the curl package.
 
 
 %prep
-%setup -q -n curl-7.84.0
-cd %{_builddir}/curl-7.84.0
+%setup -q -n curl-7.85.0
+cd %{_builddir}/curl-7.85.0
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
 pushd ..
-cp -a curl-7.84.0 build32
+cp -a curl-7.85.0 build32
 popd
 
 %build
@@ -146,7 +146,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656340574
+export SOURCE_DATE_EPOCH=1661962155
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
@@ -208,10 +208,10 @@ cd ../build32;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1656340574
+export SOURCE_DATE_EPOCH=1661962155
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
-cp %{_builddir}/curl-7.84.0/COPYING %{buildroot}/usr/share/package-licenses/curl/a1b6d897dd52289ab03cb1350b152e68f44bc130
+cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/a1b6d897dd52289ab03cb1350b152e68f44bc130 || :
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -406,7 +406,6 @@ popd
 /usr/share/man/man3/CURLOPT_FTP_ALTERNATIVE_TO_USER.3
 /usr/share/man/man3/CURLOPT_FTP_CREATE_MISSING_DIRS.3
 /usr/share/man/man3/CURLOPT_FTP_FILEMETHOD.3
-/usr/share/man/man3/CURLOPT_FTP_RESPONSE_TIMEOUT.3
 /usr/share/man/man3/CURLOPT_FTP_SKIP_PASV_IP.3
 /usr/share/man/man3/CURLOPT_FTP_SSL_CCC.3
 /usr/share/man/man3/CURLOPT_FTP_USE_EPRT.3
@@ -497,6 +496,7 @@ popd
 /usr/share/man/man3/CURLOPT_PROGRESSDATA.3
 /usr/share/man/man3/CURLOPT_PROGRESSFUNCTION.3
 /usr/share/man/man3/CURLOPT_PROTOCOLS.3
+/usr/share/man/man3/CURLOPT_PROTOCOLS_STR.3
 /usr/share/man/man3/CURLOPT_PROXY.3
 /usr/share/man/man3/CURLOPT_PROXYAUTH.3
 /usr/share/man/man3/CURLOPT_PROXYHEADER.3
@@ -537,6 +537,7 @@ popd
 /usr/share/man/man3/CURLOPT_READDATA.3
 /usr/share/man/man3/CURLOPT_READFUNCTION.3
 /usr/share/man/man3/CURLOPT_REDIR_PROTOCOLS.3
+/usr/share/man/man3/CURLOPT_REDIR_PROTOCOLS_STR.3
 /usr/share/man/man3/CURLOPT_REFERER.3
 /usr/share/man/man3/CURLOPT_REQUEST_TARGET.3
 /usr/share/man/man3/CURLOPT_RESOLVE.3
@@ -554,6 +555,7 @@ popd
 /usr/share/man/man3/CURLOPT_SASL_IR.3
 /usr/share/man/man3/CURLOPT_SEEKDATA.3
 /usr/share/man/man3/CURLOPT_SEEKFUNCTION.3
+/usr/share/man/man3/CURLOPT_SERVER_RESPONSE_TIMEOUT.3
 /usr/share/man/man3/CURLOPT_SERVICE_NAME.3
 /usr/share/man/man3/CURLOPT_SHARE.3
 /usr/share/man/man3/CURLOPT_SOCKOPTDATA.3

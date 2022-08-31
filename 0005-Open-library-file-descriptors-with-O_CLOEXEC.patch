@@ -53,9 +53,9 @@ index dd8a1fd..5d6cabd 100644
      return CURLE_URL_MALFORMAT;
    }
  
--  fd = open_readonly(real_path, O_RDONLY);
-+  fd = open_readonly(real_path, O_RDONLY|O_CLOEXEC);
-   file->path = real_path;
+-  fd = open_readonly(actual_path, O_RDONLY|O_BINARY);
++  fd = open_readonly(actual_path, O_RDONLY|O_BINARY|O_CLOEXEC);
+   file->path = actual_path;
  #endif
    file->freepath = real_path; /* free this when done */
 @@ -278,7 +278,7 @@ static CURLcode file_upload(struct Curl_easy *data)
