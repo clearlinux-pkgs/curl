@@ -6,7 +6,7 @@
 #
 Name     : curl
 Version  : 7.85.0
-Release  : 125
+Release  : 126
 URL      : https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.xz
 Source0  : https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.xz
 Source1  : https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.xz.asc
@@ -38,6 +38,7 @@ BuildRequires : groff
 BuildRequires : libc6
 BuildRequires : libidn-dev
 BuildRequires : libidn-dev32
+BuildRequires : libproxy-dev
 BuildRequires : libtool
 BuildRequires : libtool-dev
 BuildRequires : m4
@@ -52,10 +53,9 @@ BuildRequires : zlib-dev32
 BuildRequires : zstd-dev
 BuildRequires : zstd-dev32
 Patch1: 0001-Remove-use-of-DES.patch
-Patch2: 0002-Add-pacrunner-call-for-autoproxy-resolution.patch
-Patch3: 0003-Check-the-state-file-pacdiscovery-sets.patch
-Patch4: 0004-Avoid-stripping-the-g-option.patch
-Patch5: 0005-Open-library-file-descriptors-with-O_CLOEXEC.patch
+Patch2: 0004-Avoid-stripping-the-g-option.patch
+Patch3: 0005-Open-library-file-descriptors-with-O_CLOEXEC.patch
+Patch4: libproxy.patch
 
 %description
 curl is used in command lines or scripts to transfer data. It is also used in
@@ -136,7 +136,6 @@ cd %{_builddir}/curl-7.85.0
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 pushd ..
 cp -a curl-7.85.0 build32
 popd
@@ -146,7 +145,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1661962155
+export SOURCE_DATE_EPOCH=1664378279
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
@@ -169,7 +168,8 @@ export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno
 --disable-tftp \
 --disable-pop3 \
 --disable-gopher \
---enable-negotiate --with-gssapi=/usr
+--enable-negotiate \
+--with-libproxy --with-gssapi=/usr
 make  %{?_smp_mflags}
 pushd ../build32/
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig:/usr/share/pkgconfig"
@@ -194,7 +194,8 @@ export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
 --disable-tftp \
 --disable-pop3 \
 --disable-gopher \
---enable-negotiate  --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+--enable-negotiate \
+--with-libproxy --without-libproxy --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make  %{?_smp_mflags}
 popd
 
@@ -208,7 +209,7 @@ cd ../build32;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1661962155
+export SOURCE_DATE_EPOCH=1664378279
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
 cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/a1b6d897dd52289ab03cb1350b152e68f44bc130 || :

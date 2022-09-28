@@ -1,6 +1,5 @@
 # This file contains recursive sources that require this package
 clr-network-troubleshooter
-compat-libsoup-soname-24
 kubernetes
 kubernetes-migration-1.18
 pypi-pycurl

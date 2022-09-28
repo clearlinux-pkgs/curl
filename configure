@@ -16,3 +16,4 @@
 --disable-pop3
 --disable-gopher
 --enable-negotiate
+--with-libproxy
