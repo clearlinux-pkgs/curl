@@ -6,7 +6,7 @@
 #
 Name     : curl
 Version  : 7.85.0
-Release  : 127
+Release  : 128
 URL      : https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.xz
 Source0  : https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.xz
 Source1  : https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.xz.asc
@@ -53,8 +53,10 @@ BuildRequires : zlib-dev32
 BuildRequires : zstd-dev
 BuildRequires : zstd-dev32
 Patch1: 0001-Remove-use-of-DES.patch
-Patch2: 0004-Avoid-stripping-the-g-option.patch
-Patch3: 0005-Open-library-file-descriptors-with-O_CLOEXEC.patch
+Patch2: 0002-Add-pacrunner-call-for-autoproxy-resolution.patch
+Patch3: 0003-Check-the-state-file-pacdiscovery-sets.patch
+Patch4: 0004-Avoid-stripping-the-g-option.patch
+Patch5: 0005-Open-library-file-descriptors-with-O_CLOEXEC.patch
 
 %description
 curl is used in command lines or scripts to transfer data. It is also used in
@@ -134,6 +136,8 @@ cd %{_builddir}/curl-7.85.0
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
 pushd ..
 cp -a curl-7.85.0 build32
 popd
@@ -143,7 +147,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1664408012
+export SOURCE_DATE_EPOCH=1664494176
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
@@ -207,10 +211,10 @@ cd ../build32;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1664408012
+export SOURCE_DATE_EPOCH=1664494176
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
-cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/a1b6d897dd52289ab03cb1350b152e68f44bc130 || :
+cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/a1b6d897dd52289ab03cb1350b152e68f44bc130
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
