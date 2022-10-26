@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x5CC908FDB71E12C2 (daniel@haxx.se)
 #
 Name     : curl
-Version  : 7.85.0
-Release  : 128
-URL      : https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.xz
-Source0  : https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.xz
-Source1  : https://github.com/curl/curl/releases/download/curl-7_85_0/curl-7.85.0.tar.xz.asc
+Version  : 7.86.0
+Release  : 129
+URL      : https://github.com/curl/curl/releases/download/curl-7_86_0/curl-7.86.0.tar.xz
+Source0  : https://github.com/curl/curl/releases/download/curl-7_86_0/curl-7.86.0.tar.xz
+Source1  : https://github.com/curl/curl/releases/download/curl-7_86_0/curl-7.86.0.tar.xz.asc
 Summary  : Command line tool and library for transferring data with URLs
 Group    : Development/Tools
 License  : MIT
@@ -131,15 +131,15 @@ man components for the curl package.
 
 
 %prep
-%setup -q -n curl-7.85.0
-cd %{_builddir}/curl-7.85.0
+%setup -q -n curl-7.86.0
+cd %{_builddir}/curl-7.86.0
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
 pushd ..
-cp -a curl-7.85.0 build32
+cp -a curl-7.86.0 build32
 popd
 
 %build
@@ -147,7 +147,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1664494176
+export SOURCE_DATE_EPOCH=1666799102
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
@@ -211,10 +211,10 @@ cd ../build32;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1664494176
+export SOURCE_DATE_EPOCH=1666799102
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
-cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/a1b6d897dd52289ab03cb1350b152e68f44bc130
+cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/a1b6d897dd52289ab03cb1350b152e68f44bc130 || :
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -253,6 +253,7 @@ popd
 /usr/include/curl/system.h
 /usr/include/curl/typecheck-gcc.h
 /usr/include/curl/urlapi.h
+/usr/include/curl/websockets.h
 /usr/lib64/libcurl.so
 /usr/lib64/pkgconfig/libcurl.pc
 /usr/share/aclocal/*.m4
@@ -636,6 +637,7 @@ popd
 /usr/share/man/man3/CURLOPT_WILDCARDMATCH.3
 /usr/share/man/man3/CURLOPT_WRITEDATA.3
 /usr/share/man/man3/CURLOPT_WRITEFUNCTION.3
+/usr/share/man/man3/CURLOPT_WS_OPTIONS.3
 /usr/share/man/man3/CURLOPT_XFERINFODATA.3
 /usr/share/man/man3/CURLOPT_XFERINFOFUNCTION.3
 /usr/share/man/man3/CURLOPT_XOAUTH2_BEARER.3
@@ -721,6 +723,9 @@ popd
 /usr/share/man/man3/curl_url_strerror.3
 /usr/share/man/man3/curl_version.3
 /usr/share/man/man3/curl_version_info.3
+/usr/share/man/man3/curl_ws_meta.3
+/usr/share/man/man3/curl_ws_recv.3
+/usr/share/man/man3/curl_ws_send.3
 /usr/share/man/man3/libcurl-easy.3
 /usr/share/man/man3/libcurl-env.3
 /usr/share/man/man3/libcurl-errors.3

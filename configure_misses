@@ -2,8 +2,6 @@ Configure miss: BoringSSL
 Configure miss: BoringSSL
 Configure miss: BrotliDecoderDecompress in -lbrotlidec
 Configure miss: BrotliDecoderDecompress in -lbrotlidec
-Configure miss: OpenSSL >= v3
-Configure miss: OpenSSL >= v3
 Configure miss: RAND_egd
 Configure miss: RAND_egd
 Configure miss: RTMP_Init in -lrtmp
@@ -28,6 +26,7 @@ Configure miss: gssapi/gssapi.h
 Configure miss: gssapi/gssapi_generic.h
 Configure miss: gssapi/gssapi_krb5.h
 Configure miss: i686-generic-linux-gnu-file
+Configure miss: i686-generic-linux-gnu-windres
 Configure miss: idn2.h
 Configure miss: idn2.h
 Configure miss: if GSS-API support is requested
@@ -49,16 +48,11 @@ Configure miss: if time_t is unsigned
 Configure miss: if time_t is unsigned
 Configure miss: libidn2 options with pkg-config
 Configure miss: libidn2 options with pkg-config
-Configure miss: libngtcp2 options with pkg-config
-Configure miss: libngtcp2 options with pkg-config
-Configure miss: library containing gsasl_init
 Configure miss: library containing gsasl_init
 Configure miss: library containing psl_builtin
 Configure miss: library containing psl_builtin
 Configure miss: libressl
 Configure miss: libressl
-Configure miss: memory.h
-Configure miss: memory.h
 Configure miss: mit-krb5-gssapi options with pkg-config
 Configure miss: netinet/in6.h
 Configure miss: netinet/in6.h
@@ -66,8 +60,6 @@ Configure miss: proto/bsdsocket.h
 Configure miss: proto/bsdsocket.h
 Configure miss: socket.h
 Configure miss: socket.h
-Configure miss: stropts.h
-Configure miss: stropts.h
 Configure miss: to see if the compiler supports __builtin_available()
 Configure miss: to see if the compiler supports __builtin_available()
 Configure miss: whether build target is a native Windows one
@@ -83,8 +75,8 @@ Configure miss: whether to build shared libraries with -no-undefined
 Configure miss: whether to build static libraries only
 Configure miss: whether to build static libraries only
 Configure miss: whether to build static libraries with PIC
-Configure miss: whether to enable Amiga native SSL/TLS (AmiSSL)
-Configure miss: whether to enable Amiga native SSL/TLS (AmiSSL)
+Configure miss: whether to enable Amiga native SSL/TLS (AmiSSL v5)
+Configure miss: whether to enable Amiga native SSL/TLS (AmiSSL v5)
 Configure miss: whether to enable ECH support
 Configure miss: whether to enable ECH support
 Configure miss: whether to enable NTLM delegation to winbind's helper
@@ -109,6 +101,8 @@ Configure miss: whether to enable strict compiler warnings
 Configure miss: whether to enable strict compiler warnings
 Configure miss: whether to link macOS CoreFoundation and SystemConfiguration framework
 Configure miss: whether to link macOS CoreFoundation and SystemConfiguration framework
+Configure miss: whether to support WebSockets
+Configure miss: whether to support WebSockets
 Configure miss: whether to support gopher
 Configure miss: whether to support gopher
 Configure miss: whether to support ldap
@@ -131,4 +125,6 @@ Configure miss: whether to use libgcc
 Configure miss: whether to use libgcc
 Configure miss: whether versioned symbols are wanted
 Configure miss: whether versioned symbols are wanted
+Configure miss: windres
+Configure miss: windres
 Configure miss: x86_64-generic-linux-gnu-file

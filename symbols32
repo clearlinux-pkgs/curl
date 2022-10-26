@@ -86,3 +86,6 @@ libcurl.so.4:curl_url_set
 libcurl.so.4:curl_url_strerror
 libcurl.so.4:curl_version
 libcurl.so.4:curl_version_info
+libcurl.so.4:curl_ws_meta
+libcurl.so.4:curl_ws_recv
+libcurl.so.4:curl_ws_send
