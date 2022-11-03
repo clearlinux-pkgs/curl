@@ -28,7 +28,7 @@ diff --git a/configure.ac b/configure.ac
 index d440554..8252b6e 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -41,6 +41,8 @@ AC_CONFIG_MACRO_DIR([m4])
+@@ -43,6 +43,8 @@ AC_CONFIG_MACRO_DIR([m4])
  AM_MAINTAINER_MODE
  m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
  
@@ -41,8 +41,8 @@ diff --git a/lib/Makefile.am b/lib/Makefile.am
 index b51796f..bdbf7eb 100644
 --- a/lib/Makefile.am
 +++ b/lib/Makefile.am
-@@ -85,8 +85,8 @@ AM_LDFLAGS =
- AM_CFLAGS =
+@@ -82,8 +82,8 @@ libcurl_la_SOURCES = $(CSOURCES) $(HHEADERS)
+ libcurlu_la_SOURCES = $(CSOURCES) $(HHEADERS)
  
  libcurl_la_CPPFLAGS_EXTRA =
 -libcurl_la_LDFLAGS_EXTRA =
@@ -56,8 +56,8 @@ diff --git a/lib/url.c b/lib/url.c
 index 37b6c0e..e6f0897 100644
 --- a/lib/url.c
 +++ b/lib/url.c
-@@ -75,6 +75,11 @@
- bool curl_win32_idn_to_ascii(const char *in, char **out);
+@@ -77,6 +77,11 @@
+ bool Curl_win32_idn_to_ascii(const char *in, char **out);
  #endif  /* USE_LIBIDN2 */
  
 +#ifndef CURL_DISABLE_PROXY
@@ -68,7 +68,7 @@ index 37b6c0e..e6f0897 100644
  #include "doh.h"
  #include "urldata.h"
  #include "netrc.h"
-@@ -138,6 +143,7 @@ bool curl_win32_idn_to_ascii(const char *in, char **out);
+@@ -141,6 +146,7 @@ bool Curl_win32_idn_to_ascii(const char *in, char **out);
  #include "memdebug.h"
  
  static void conn_free(struct connectdata *conn);
@@ -76,7 +76,7 @@ index 37b6c0e..e6f0897 100644
  
  /* Some parts of the code (e.g. chunked encoding) assume this buffer has at
   * more than just a few bytes to play with. Don't let it become too small or
-@@ -2283,9 +2289,12 @@ static bool check_noproxy(const char *name, const char *no_proxy)
+@@ -2287,9 +2293,12 @@ void Curl_free_request_state(struct Curl_easy *data)
  * The returned pointer must be freed by the caller (unless NULL)
  ****************************************************************/
  static char *detect_proxy(struct Curl_easy *data,
@@ -90,7 +90,7 @@ index 37b6c0e..e6f0897 100644
  
    /* If proxy was not specified, we check for default proxy environment
     * variables, to enable i.e Lynx compliance:
-@@ -2344,7 +2353,18 @@ static char *detect_proxy(struct Curl_easy *data,
+@@ -2348,7 +2357,18 @@ static char *detect_proxy(struct Curl_easy *data,
    if(prox) {
      proxy = prox; /* use this */
    }
@@ -110,7 +110,7 @@ index 37b6c0e..e6f0897 100644
      envp = (char *)"all_proxy";
      proxy = curl_getenv(envp); /* default proxy to use */
      if(!proxy) {
-@@ -2605,10 +2625,12 @@ static CURLcode create_conn_helper_init_proxy(struct Curl_easy *data,
+@@ -2652,10 +2672,12 @@ static CURLcode create_conn_helper_init_proxy(struct Curl_easy *data,
      Curl_safefree(proxy);
      Curl_safefree(socksproxy);
    }
@@ -125,8 +125,8 @@ index 37b6c0e..e6f0897 100644
  #endif /* CURL_DISABLE_HTTP */
  
    Curl_safefree(no_proxy);
-@@ -3528,6 +3550,109 @@ static void reuse_conn(struct Curl_easy *data,
- #endif
+@@ -3603,6 +3625,109 @@ static void reuse_conn(struct Curl_easy *data,
+   conn_free(old_conn);
  }
  
 +/**

@@ -23,7 +23,7 @@ diff --git a/configure.ac b/configure.ac
 index d8dcec8..4db5db2 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -299,6 +299,8 @@ AC_DEFINE_UNQUOTED(OS, "${host}", [cpu-machine-OS])
+@@ -339,6 +339,8 @@ AC_DEFINE_UNQUOTED(OS, "${host}", [cpu-machine-OS])
  # Silence warning: ar: 'u' modifier ignored since 'D' is the default
  AC_SUBST(AR_FLAGS, [cr])
  
@@ -36,7 +36,7 @@ diff --git a/lib/connect.c b/lib/connect.c
 index 296fb62..18a9bee 100644
 --- a/lib/connect.c
 +++ b/lib/connect.c
-@@ -1598,7 +1598,7 @@ CURLcode Curl_socket(struct Curl_easy *data,
+@@ -1646,7 +1646,7 @@ CURLcode Curl_socket(struct Curl_easy *data,
    }
    else
      /* opensocket callback not set, so simply create the socket now */
@@ -49,16 +49,16 @@ diff --git a/lib/file.c b/lib/file.c
 index dd8a1fd..5d6cabd 100644
 --- a/lib/file.c
 +++ b/lib/file.c
-@@ -194,7 +194,7 @@ static CURLcode file_connect(struct Curl_easy *data, bool *done)
-     return CURLE_URL_MALFORMAT;
+@@ -222,7 +222,7 @@ static CURLcode file_connect(struct Curl_easy *data, bool *done)
+     }
    }
- 
--  fd = open_readonly(actual_path, O_RDONLY|O_BINARY);
-+  fd = open_readonly(actual_path, O_RDONLY|O_BINARY|O_CLOEXEC);
-   file->path = actual_path;
+   #else
+-  fd = open_readonly(real_path, O_RDONLY);
++  fd = open_readonly(real_path, O_RDONLY|O_CLOEXEC);
+   file->path = real_path;
+   #endif
  #endif
-   file->freepath = real_path; /* free this when done */
-@@ -278,7 +278,7 @@ static CURLcode file_upload(struct Curl_easy *data)
+@@ -307,7 +307,7 @@ static CURLcode file_upload(struct Curl_easy *data)
    else
      mode = MODE_DEFAULT|O_TRUNC;
  
@@ -71,7 +71,7 @@ diff --git a/lib/hostip.c b/lib/hostip.c
 index 117caa2..a451d81 100644
 --- a/lib/hostip.c
 +++ b/lib/hostip.c
-@@ -49,7 +49,7 @@
+@@ -51,7 +51,7 @@
  #ifdef HAVE_PROCESS_H
  #include <process.h>
  #endif
@@ -80,7 +80,7 @@ index 117caa2..a451d81 100644
  #include "urldata.h"
  #include "sendf.h"
  #include "hostip.h"
-@@ -549,7 +549,7 @@ bool Curl_ipv6works(struct Curl_easy *data)
+@@ -580,7 +580,7 @@ bool Curl_ipv6works(struct Curl_easy *data)
    else {
      int ipv6_works = -1;
      /* probe to see if we have a working IPv6 stack */
@@ -93,7 +93,7 @@ diff --git a/lib/if2ip.c b/lib/if2ip.c
 index 21e00b1..14020bc 100644
 --- a/lib/if2ip.c
 +++ b/lib/if2ip.c
-@@ -202,7 +202,7 @@ if2ip_result_t Curl_if2ip(int af, unsigned int remote_scope,
+@@ -206,7 +206,7 @@ if2ip_result_t Curl_if2ip(int af,
    if(len >= sizeof(req.ifr_name))
      return IF2IP_NOT_FOUND;
  

@@ -6,7 +6,7 @@
 #
 Name     : curl
 Version  : 7.86.0
-Release  : 130
+Release  : 131
 URL      : https://github.com/curl/curl/releases/download/curl-7_86_0/curl-7.86.0.tar.xz
 Source0  : https://github.com/curl/curl/releases/download/curl-7_86_0/curl-7.86.0.tar.xz
 Source1  : https://github.com/curl/curl/releases/download/curl-7_86_0/curl-7.86.0.tar.xz.asc
@@ -151,7 +151,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1667497444
+export SOURCE_DATE_EPOCH=1667504022
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
@@ -215,7 +215,7 @@ cd ../build32;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1667497444
+export SOURCE_DATE_EPOCH=1667504022
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
 cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/a1b6d897dd52289ab03cb1350b152e68f44bc130
