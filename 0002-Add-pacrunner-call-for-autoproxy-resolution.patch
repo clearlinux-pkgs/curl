@@ -69,9 +69,9 @@ index 37b6c0e..e6f0897 100644
  #include "urldata.h"
  #include "netrc.h"
 @@ -141,6 +146,7 @@ bool Curl_win32_idn_to_ascii(const char *in, char **out);
- #include "memdebug.h"
+ #endif
  
- static void conn_free(struct connectdata *conn);
+ static void conn_free(struct Curl_easy *data, struct connectdata *conn);
 +static int query_pacrunner_proxy(char *url, char *host, char *proxy_host);
  
  /* Some parts of the code (e.g. chunked encoding) assume this buffer has at
