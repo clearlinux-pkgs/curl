@@ -6,8 +6,12 @@ Configure miss: RAND_egd
 Configure miss: RAND_egd
 Configure miss: RTMP_Init in -lrtmp
 Configure miss: RTMP_Init in -lrtmp
+Configure miss: apxs
+Configure miss: apxs
 Configure miss: brotli/decode.h
 Configure miss: brotli/decode.h
+Configure miss: caddy
+Configure miss: caddy
 Configure miss: clock_gettime in libraries
 Configure miss: clock_gettime in libraries
 Configure miss: code coverage support
@@ -49,6 +53,7 @@ Configure miss: if time_t is unsigned
 Configure miss: libidn2 options with pkg-config
 Configure miss: libidn2 options with pkg-config
 Configure miss: library containing gsasl_init
+Configure miss: library containing gsasl_init
 Configure miss: library containing psl_builtin
 Configure miss: library containing psl_builtin
 Configure miss: libressl
@@ -56,6 +61,8 @@ Configure miss: libressl
 Configure miss: mit-krb5-gssapi options with pkg-config
 Configure miss: netinet/in6.h
 Configure miss: netinet/in6.h
+Configure miss: nghttpx
+Configure miss: nghttpx
 Configure miss: proto/bsdsocket.h
 Configure miss: proto/bsdsocket.h
 Configure miss: socket.h

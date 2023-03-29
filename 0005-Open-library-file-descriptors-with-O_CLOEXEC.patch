@@ -32,19 +32,6 @@ index d8dcec8..4db5db2 100644
  dnl This defines _ALL_SOURCE for AIX
  CURL_CHECK_AIX_ALL_SOURCE
  
-diff --git a/lib/connect.c b/lib/connect.c
-index 296fb62..18a9bee 100644
---- a/lib/connect.c
-+++ b/lib/connect.c
-@@ -1646,7 +1646,7 @@ CURLcode Curl_socket(struct Curl_easy *data,
-   }
-   else
-     /* opensocket callback not set, so simply create the socket now */
--    *sockfd = socket(addr->family, addr->socktype, addr->protocol);
-+    *sockfd = socket(addr->family, addr->socktype | SOCK_CLOEXEC, addr->protocol);
- 
-   if(*sockfd == CURL_SOCKET_BAD)
-     /* no socket, no connection */
 diff --git a/lib/file.c b/lib/file.c
 index dd8a1fd..5d6cabd 100644
 --- a/lib/file.c
