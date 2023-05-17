@@ -6,16 +6,17 @@
 # Source0 file verified with key 0x5CC908FDB71E12C2 (daniel@haxx.se)
 #
 Name     : curl
-Version  : 8.0.1
-Release  : 134
-URL      : https://github.com/curl/curl/releases/download/curl-8_0_1/curl-8.0.1.tar.xz
-Source0  : https://github.com/curl/curl/releases/download/curl-8_0_1/curl-8.0.1.tar.xz
-Source1  : https://github.com/curl/curl/releases/download/curl-8_0_1/curl-8.0.1.tar.xz.asc
+Version  : 8.1.0
+Release  : 135
+URL      : https://github.com/curl/curl/releases/download/curl-8_1_0/curl-8.1.0.tar.xz
+Source0  : https://github.com/curl/curl/releases/download/curl-8_1_0/curl-8.1.0.tar.xz
+Source1  : https://github.com/curl/curl/releases/download/curl-8_1_0/curl-8.1.0.tar.xz.asc
 Summary  : Command line tool and library for transferring data with URLs
 Group    : Development/Tools
-License  : MIT
+License  : BSD-2-Clause MIT
 Requires: curl-bin = %{version}-%{release}
 Requires: curl-lib = %{version}-%{release}
+Requires: curl-license = %{version}-%{release}
 Requires: curl-man = %{version}-%{release}
 Requires: ca-certs
 BuildRequires : buildreq-configure
@@ -64,6 +65,7 @@ thousands of software applications affecting billions of humans daily.
 %package bin
 Summary: bin components for the curl package.
 Group: Binaries
+Requires: curl-license = %{version}-%{release}
 
 %description bin
 bin components for the curl package.
@@ -95,6 +97,7 @@ dev32 components for the curl package.
 %package lib
 Summary: lib components for the curl package.
 Group: Libraries
+Requires: curl-license = %{version}-%{release}
 
 %description lib
 lib components for the curl package.
@@ -103,9 +106,18 @@ lib components for the curl package.
 %package lib32
 Summary: lib32 components for the curl package.
 Group: Default
+Requires: curl-license = %{version}-%{release}
 
 %description lib32
 lib32 components for the curl package.
+
+
+%package license
+Summary: license components for the curl package.
+Group: Default
+
+%description license
+license components for the curl package.
 
 
 %package man
@@ -117,15 +129,18 @@ man components for the curl package.
 
 
 %prep
-%setup -q -n curl-8.0.1
-cd %{_builddir}/curl-8.0.1
+%setup -q -n curl-8.1.0
+cd %{_builddir}/curl-8.1.0
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
 pushd ..
-cp -a curl-8.0.1 build32
+cp -a curl-8.1.0 build32
+popd
+pushd ..
+cp -a curl-8.1.0 buildavx2
 popd
 
 %build
@@ -133,12 +148,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1680108481
+export SOURCE_DATE_EPOCH=1684335225
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz "
-export FCFLAGS="$FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz "
-export FFLAGS="$FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz "
-export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz "
+export CFLAGS="$CFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FCFLAGS="$FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export FFLAGS="$FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 %reconfigure --disable-static --with-ssl=/usr \
 --disable-ldap \
 --without-winidn \
@@ -186,6 +201,34 @@ export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
 --with-libproxy --without-libproxy --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make  %{?_smp_mflags}
 popd
+unset PKG_CONFIG_PATH
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
+%reconfigure --disable-static --with-ssl=/usr \
+--disable-ldap \
+--without-winidn \
+--with-libidn \
+--enable-threaded-resolver \
+--with-zlib \
+--enable-symbol-hiding \
+--with-ca-path=/var/cache/ca-certs/anchors \
+--disable-ntlm-wb \
+--disable-smb \
+--enable-proxy \
+--with-nghttp2 \
+--enable-ipv6 \
+--disable-telnet \
+--disable-tftp \
+--disable-pop3 \
+--disable-gopher \
+--enable-negotiate \
+--with-libproxy
+make  %{?_smp_mflags}
+popd
 
 %check
 export LANG=C.UTF-8
@@ -195,10 +238,14 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check || :
 cd ../build32;
 make %{?_smp_mflags} check || : || :
+cd ../buildavx2;
+make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1680108481
+export SOURCE_DATE_EPOCH=1684335225
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/curl
+cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/ce612120827185239dff94b8ac3a58a6c82a5578 || :
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -214,18 +261,24 @@ for i in *.pc ; do ln -s $i 32$i ; done
 popd
 fi
 popd
+pushd ../buildavx2/
+%make_install_v3
+popd
 %make_install
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
 
 %files bin
 %defattr(-,root,root,-)
+/V3/usr/bin/curl
 /usr/bin/curl
 /usr/bin/curl-config
 
 %files dev
 %defattr(-,root,root,-)
+/V3/usr/lib64/libcurl.so
 /usr/include/curl/curl.h
 /usr/include/curl/curlver.h
 /usr/include/curl/easy.h
@@ -731,6 +784,8 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
+/V3/usr/lib64/libcurl.so.4
+/V3/usr/lib64/libcurl.so.4.8.0
 /usr/lib64/libcurl.so.4
 /usr/lib64/libcurl.so.4.8.0
 
@@ -738,6 +793,10 @@ popd
 %defattr(-,root,root,-)
 /usr/lib32/libcurl.so.4
 /usr/lib32/libcurl.so.4.8.0
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/curl/ce612120827185239dff94b8ac3a58a6c82a5578
 
 %files man
 %defattr(0644,root,root,0755)
