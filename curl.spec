@@ -7,7 +7,7 @@
 #
 Name     : curl
 Version  : 8.1.1
-Release  : 136
+Release  : 137
 URL      : https://github.com/curl/curl/releases/download/curl-8_1_1/curl-8.1.1.tar.xz
 Source0  : https://github.com/curl/curl/releases/download/curl-8_1_1/curl-8.1.1.tar.xz
 Source1  : https://github.com/curl/curl/releases/download/curl-8_1_1/curl-8.1.1.tar.xz.asc
@@ -131,11 +131,11 @@ man components for the curl package.
 %prep
 %setup -q -n curl-8.1.1
 cd %{_builddir}/curl-8.1.1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
+%patch -P 5 -p1
 pushd ..
 cp -a curl-8.1.1 build32
 popd
@@ -148,7 +148,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1684862145
+export SOURCE_DATE_EPOCH=1687460282
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
@@ -242,7 +242,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1684862145
+export SOURCE_DATE_EPOCH=1687460282
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
 cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/ce612120827185239dff94b8ac3a58a6c82a5578 || :
@@ -278,7 +278,6 @@ popd
 
 %files dev
 %defattr(-,root,root,-)
-/V3/usr/lib64/libcurl.so
 /usr/include/curl/curl.h
 /usr/include/curl/curlver.h
 /usr/include/curl/easy.h
@@ -784,7 +783,6 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libcurl.so.4
 /V3/usr/lib64/libcurl.so.4.8.0
 /usr/lib64/libcurl.so.4
 /usr/lib64/libcurl.so.4.8.0
