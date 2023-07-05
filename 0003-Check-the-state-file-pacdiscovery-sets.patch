@@ -1,6 +1,6 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Tudor Marcu <tudor.marcu@intel.com>
-Date: Mon, 19 Oct 2015 14:27:02 -0700
+From 5e145a8dc6d7249068914fbd557ef4ac87c5550b Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Wed, 5 Jul 2023 14:17:53 -0700
 Subject: [PATCH] Check the state file pacdiscovery sets
 
 If pacdiscovery did not run, then Pacrunner has no proxy script, thus proxy
@@ -14,19 +14,19 @@ Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
  1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/lib/url.c b/lib/url.c
-index 7e1e875..95b6575 100644
+index 7b378d7..9dd92d3 100644
 --- a/lib/url.c
 +++ b/lib/url.c
-@@ -81,6 +81,8 @@ bool Curl_win32_idn_to_ascii(const char *in, char **out);
+@@ -63,6 +63,8 @@
  /* Need dbus so we can query pacrunner for proxy */
  #include <dbus/dbus.h>
  #endif /* CURL_DISABLE_PROXY */
 +#include <sys/stat.h>
 +#define PROXY_STATE_FILE "/run/pacrunner/pac_active"
  
- #include "doh.h"
- #include "urldata.h"
-@@ -2324,6 +2326,7 @@ static char *detect_proxy(struct Curl_easy *data,
+ #include <limits.h>
+ 
+@@ -2073,6 +2075,7 @@ static char *detect_proxy(struct Curl_easy *data,
  #ifdef CURL_DISABLE_VERBOSE_STRINGS
    (void)data;
  #endif
@@ -34,10 +34,10 @@ index 7e1e875..95b6575 100644
  
    /* Now, build <protocol>_proxy and check for such a one to use */
    while(*protop)
-@@ -2358,7 +2361,9 @@ static char *detect_proxy(struct Curl_easy *data,
+@@ -2106,7 +2109,9 @@ static char *detect_proxy(struct Curl_easy *data,
+   if(prox) {
      proxy = prox; /* use this */
    }
- 
 -  if(!proxy) {
 +  /* Check that no proxy is set AND that pacdiscovery has set pacrunner
 +   * with a PAC script */
@@ -45,3 +45,6 @@ index 7e1e875..95b6575 100644
      /* No protocol-specific proxy set in the environment.
       *     Fallback to pacrunner autoproxy lookup */
      autoproxy_ret = query_pacrunner_proxy(url,
+-- 
+2.41.0
+
