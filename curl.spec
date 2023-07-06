@@ -7,7 +7,7 @@
 #
 Name     : curl
 Version  : 8.1.2
-Release  : 139
+Release  : 140
 URL      : https://github.com/curl/curl/releases/download/curl-8_1_2/curl-8.1.2.tar.xz
 Source0  : https://github.com/curl/curl/releases/download/curl-8_1_2/curl-8.1.2.tar.xz
 Source1  : https://github.com/curl/curl/releases/download/curl-8_1_2/curl-8.1.2.tar.xz.asc
@@ -55,7 +55,6 @@ Patch2: 0002-Add-pacrunner-call-for-autoproxy-resolution.patch
 Patch3: 0003-Check-the-state-file-pacdiscovery-sets.patch
 Patch4: 0004-Avoid-stripping-the-g-option.patch
 Patch5: 0005-Open-library-file-descriptors-with-O_CLOEXEC.patch
-Patch6: 0006-Add-autoconf-for-dbus.patch
 
 %description
 curl is used in command lines or scripts to transfer data. It is also used in
@@ -137,7 +136,6 @@ cd %{_builddir}/curl-8.1.2
 %patch -P 3 -p1
 %patch -P 4 -p1
 %patch -P 5 -p1
-%patch -P 6 -p1
 pushd ..
 cp -a curl-8.1.2 build32
 popd
@@ -150,7 +148,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1688604116
+export SOURCE_DATE_EPOCH=1688668129
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
@@ -244,7 +242,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1688604116
+export SOURCE_DATE_EPOCH=1688668129
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
 cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/ce612120827185239dff94b8ac3a58a6c82a5578 || :
