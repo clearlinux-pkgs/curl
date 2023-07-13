@@ -7,7 +7,7 @@
 #
 Name     : curl
 Version  : 8.1.2
-Release  : 140
+Release  : 141
 URL      : https://github.com/curl/curl/releases/download/curl-8_1_2/curl-8.1.2.tar.xz
 Source0  : https://github.com/curl/curl/releases/download/curl-8_1_2/curl-8.1.2.tar.xz
 Source1  : https://github.com/curl/curl/releases/download/curl-8_1_2/curl-8.1.2.tar.xz.asc
@@ -148,7 +148,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1688668129
+export SOURCE_DATE_EPOCH=1689263231
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
@@ -166,6 +166,7 @@ export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -fdebug-types-section -femit-stru
 --disable-smb \
 --enable-proxy \
 --with-nghttp2 \
+--with-nghttp3 \
 --enable-ipv6 \
 --disable-telnet \
 --disable-tftp \
@@ -192,6 +193,7 @@ export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
 --disable-smb \
 --enable-proxy \
 --with-nghttp2 \
+--with-nghttp3 \
 --enable-ipv6 \
 --disable-telnet \
 --disable-tftp \
@@ -220,6 +222,7 @@ export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
 --disable-smb \
 --enable-proxy \
 --with-nghttp2 \
+--with-nghttp3 \
 --enable-ipv6 \
 --disable-telnet \
 --disable-tftp \
@@ -242,7 +245,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1688668129
+export SOURCE_DATE_EPOCH=1689263231
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
 cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/ce612120827185239dff94b8ac3a58a6c82a5578 || :
