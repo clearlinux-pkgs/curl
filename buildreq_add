@@ -21,3 +21,4 @@ zlib-dev32
 zstd-dev
 zstd-dev32
 libproxy-dev
+nghttp3-dev

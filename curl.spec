@@ -6,11 +6,11 @@
 # Source0 file verified with key 0x5CC908FDB71E12C2 (daniel@haxx.se)
 #
 Name     : curl
-Version  : 8.1.2
-Release  : 141
-URL      : https://github.com/curl/curl/releases/download/curl-8_1_2/curl-8.1.2.tar.xz
-Source0  : https://github.com/curl/curl/releases/download/curl-8_1_2/curl-8.1.2.tar.xz
-Source1  : https://github.com/curl/curl/releases/download/curl-8_1_2/curl-8.1.2.tar.xz.asc
+Version  : 8.2.0
+Release  : 142
+URL      : https://github.com/curl/curl/releases/download/curl-8_2_0/curl-8.2.0.tar.xz
+Source0  : https://github.com/curl/curl/releases/download/curl-8_2_0/curl-8.2.0.tar.xz
+Source1  : https://github.com/curl/curl/releases/download/curl-8_2_0/curl-8.2.0.tar.xz.asc
 Summary  : Command line tool and library for transferring data with URLs
 Group    : Development/Tools
 License  : BSD-2-Clause MIT
@@ -40,6 +40,7 @@ BuildRequires : libidn-dev32
 BuildRequires : libproxy-dev
 BuildRequires : nghttp2-dev
 BuildRequires : nghttp2-dev32
+BuildRequires : nghttp3-dev
 BuildRequires : openssl-dev
 BuildRequires : openssl-dev32
 BuildRequires : pkg-config
@@ -129,18 +130,18 @@ man components for the curl package.
 
 
 %prep
-%setup -q -n curl-8.1.2
-cd %{_builddir}/curl-8.1.2
+%setup -q -n curl-8.2.0
+cd %{_builddir}/curl-8.2.0
 %patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 3 -p1
 %patch -P 4 -p1
 %patch -P 5 -p1
 pushd ..
-cp -a curl-8.1.2 build32
+cp -a curl-8.2.0 build32
 popd
 pushd ..
-cp -a curl-8.1.2 buildavx2
+cp -a curl-8.2.0 buildavx2
 popd
 
 %build
@@ -148,7 +149,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1689263231
+export SOURCE_DATE_EPOCH=1689784431
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 export FCFLAGS="$FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
@@ -245,7 +246,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1689263231
+export SOURCE_DATE_EPOCH=1689784431
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
 cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/ce612120827185239dff94b8ac3a58a6c82a5578 || :
@@ -458,6 +459,7 @@ popd
 /usr/share/man/man3/CURLOPT_GSSAPI_DELEGATION.3
 /usr/share/man/man3/CURLOPT_HAPPY_EYEBALLS_TIMEOUT_MS.3
 /usr/share/man/man3/CURLOPT_HAPROXYPROTOCOL.3
+/usr/share/man/man3/CURLOPT_HAPROXY_CLIENT_IP.3
 /usr/share/man/man3/CURLOPT_HEADER.3
 /usr/share/man/man3/CURLOPT_HEADERDATA.3
 /usr/share/man/man3/CURLOPT_HEADERFUNCTION.3
@@ -500,7 +502,7 @@ popd
 /usr/share/man/man3/CURLOPT_MAIL_AUTH.3
 /usr/share/man/man3/CURLOPT_MAIL_FROM.3
 /usr/share/man/man3/CURLOPT_MAIL_RCPT.3
-/usr/share/man/man3/CURLOPT_MAIL_RCPT_ALLLOWFAILS.3
+/usr/share/man/man3/CURLOPT_MAIL_RCPT_ALLOWFAILS.3
 /usr/share/man/man3/CURLOPT_MAXAGE_CONN.3
 /usr/share/man/man3/CURLOPT_MAXCONNECTS.3
 /usr/share/man/man3/CURLOPT_MAXFILESIZE.3
@@ -746,6 +748,8 @@ popd
 /usr/share/man/man3/curl_multi_timeout.3
 /usr/share/man/man3/curl_multi_wait.3
 /usr/share/man/man3/curl_multi_wakeup.3
+/usr/share/man/man3/curl_pushheader_byname.3
+/usr/share/man/man3/curl_pushheader_bynum.3
 /usr/share/man/man3/curl_share_cleanup.3
 /usr/share/man/man3/curl_share_init.3
 /usr/share/man/man3/curl_share_setopt.3
@@ -776,6 +780,7 @@ popd
 /usr/share/man/man3/libcurl-thread.3
 /usr/share/man/man3/libcurl-tutorial.3
 /usr/share/man/man3/libcurl-url.3
+/usr/share/man/man3/libcurl-ws.3
 /usr/share/man/man3/libcurl.3
 
 %files dev32

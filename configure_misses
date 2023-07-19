@@ -92,6 +92,7 @@ Configure miss: mit-krb5-gssapi options with pkg-config
 Configure miss: netinet/in6.h
 Configure miss: netinet/in6.h
 Configure miss: netinet/in6.h
+Configure miss: nghttp3_conn_client_new_versioned in -lnghttp3
 Configure miss: nghttpx
 Configure miss: nghttpx
 Configure miss: nghttpx
