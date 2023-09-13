@@ -1,4 +1,4 @@
-0001-Remove-use-of-DES.patch
+#0001-Remove-use-of-DES.patch
 0002-Add-pacrunner-call-for-autoproxy-resolution.patch
 0003-Check-the-state-file-pacdiscovery-sets.patch
 0004-Avoid-stripping-the-g-option.patch

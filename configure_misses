@@ -7,9 +7,6 @@ Configure miss: BoringSSL
 Configure miss: BrotliDecoderDecompress in -lbrotlidec
 Configure miss: BrotliDecoderDecompress in -lbrotlidec
 Configure miss: BrotliDecoderDecompress in -lbrotlidec
-Configure miss: RAND_egd
-Configure miss: RAND_egd
-Configure miss: RAND_egd
 Configure miss: RTMP_Init in -lrtmp
 Configure miss: RTMP_Init in -lrtmp
 Configure miss: RTMP_Init in -lrtmp
@@ -79,6 +76,8 @@ Configure miss: if time_t is unsigned
 Configure miss: libidn2 options with pkg-config
 Configure miss: libidn2 options with pkg-config
 Configure miss: libidn2 options with pkg-config
+Configure miss: library containing gsasl_init
+Configure miss: library containing gsasl_init
 Configure miss: library containing psl_builtin
 Configure miss: library containing psl_builtin
 Configure miss: library containing psl_builtin
