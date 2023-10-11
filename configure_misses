@@ -10,6 +10,9 @@ Configure miss: BrotliDecoderDecompress in -lbrotlidec
 Configure miss: RTMP_Init in -lrtmp
 Configure miss: RTMP_Init in -lrtmp
 Configure miss: RTMP_Init in -lrtmp
+Configure miss: _fseeki64
+Configure miss: _fseeki64
+Configure miss: _fseeki64
 Configure miss: apxs
 Configure miss: apxs
 Configure miss: apxs
@@ -78,6 +81,7 @@ Configure miss: libidn2 options with pkg-config
 Configure miss: libidn2 options with pkg-config
 Configure miss: library containing gsasl_init
 Configure miss: library containing gsasl_init
+Configure miss: library containing gsasl_init
 Configure miss: library containing psl_builtin
 Configure miss: library containing psl_builtin
 Configure miss: library containing psl_builtin
@@ -98,6 +102,9 @@ Configure miss: proto/bsdsocket.h
 Configure miss: socket.h
 Configure miss: socket.h
 Configure miss: socket.h
+Configure miss: stropts.h
+Configure miss: stropts.h
+Configure miss: stropts.h
 Configure miss: to see if the compiler supports __builtin_available()
 Configure miss: to see if the compiler supports __builtin_available()
 Configure miss: to see if the compiler supports __builtin_available()
@@ -156,9 +163,9 @@ Configure miss: whether to enable debug build options
 Configure miss: whether to enable strict compiler warnings
 Configure miss: whether to enable strict compiler warnings
 Configure miss: whether to enable strict compiler warnings
-Configure miss: whether to link macOS CoreFoundation and SystemConfiguration framework
-Configure miss: whether to link macOS CoreFoundation and SystemConfiguration framework
-Configure miss: whether to link macOS CoreFoundation and SystemConfiguration framework
+Configure miss: whether to link macOS CoreFoundation, CoreServices, and SystemConfiguration frameworks
+Configure miss: whether to link macOS CoreFoundation, CoreServices, and SystemConfiguration frameworks
+Configure miss: whether to link macOS CoreFoundation, CoreServices, and SystemConfiguration frameworks
 Configure miss: whether to support WebSockets
 Configure miss: whether to support WebSockets
 Configure miss: whether to support WebSockets

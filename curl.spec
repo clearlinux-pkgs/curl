@@ -6,11 +6,11 @@
 # Source0 file verified with key 0x5CC908FDB71E12C2 (daniel@haxx.se)
 #
 Name     : curl
-Version  : 8.3.0
-Release  : 144
-URL      : https://github.com/curl/curl/releases/download/curl-8_3_0/curl-8.3.0.tar.xz
-Source0  : https://github.com/curl/curl/releases/download/curl-8_3_0/curl-8.3.0.tar.xz
-Source1  : https://github.com/curl/curl/releases/download/curl-8_3_0/curl-8.3.0.tar.xz.asc
+Version  : 8.4.0
+Release  : 145
+URL      : https://github.com/curl/curl/releases/download/curl-8_4_0/curl-8.4.0.tar.xz
+Source0  : https://github.com/curl/curl/releases/download/curl-8_4_0/curl-8.4.0.tar.xz
+Source1  : https://github.com/curl/curl/releases/download/curl-8_4_0/curl-8.4.0.tar.xz.asc
 Summary  : Command line tool and library for transferring data with URLs
 Group    : Development/Tools
 License  : BSD-2-Clause MIT
@@ -51,10 +51,7 @@ BuildRequires : zstd-dev32
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
-Patch1: 0002-Add-pacrunner-call-for-autoproxy-resolution.patch
-Patch2: 0003-Check-the-state-file-pacdiscovery-sets.patch
-Patch3: 0004-Avoid-stripping-the-g-option.patch
-Patch4: 0005-Open-library-file-descriptors-with-O_CLOEXEC.patch
+Patch1: 0004-Avoid-stripping-the-g-option.patch
 
 %description
 curl is used in command lines or scripts to transfer data. It is also used in
@@ -129,17 +126,14 @@ man components for the curl package.
 
 
 %prep
-%setup -q -n curl-8.3.0
-cd %{_builddir}/curl-8.3.0
+%setup -q -n curl-8.4.0
+cd %{_builddir}/curl-8.4.0
 %patch -P 1 -p1
-%patch -P 2 -p1
-%patch -P 3 -p1
-%patch -P 4 -p1
 pushd ..
-cp -a curl-8.3.0 build32
+cp -a curl-8.4.0 build32
 popd
 pushd ..
-cp -a curl-8.3.0 buildavx2
+cp -a curl-8.4.0 buildavx2
 popd
 
 %build
@@ -147,12 +141,18 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1694629117
+export SOURCE_DATE_EPOCH=1697037183
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export FCFLAGS="$FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export FFLAGS="$FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
-export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
 %reconfigure --disable-static --with-ssl=/usr \
 --disable-ldap \
 --without-winidn \
@@ -176,10 +176,10 @@ export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -fdebug-types-section -femit-stru
 make  %{?_smp_mflags}
 pushd ../build32/
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig:/usr/share/pkgconfig"
-export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
-export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
-export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
-export LDFLAGS="${LDFLAGS}${LDFLAGS:+ }-m32 -mstackrealign"
+ASFLAGS="${CLEAR_INTERMEDIATE_ASFLAGS}${CLEAR_INTERMEDIATE_ASFLAGS:+ }--32"
+CFLAGS="${CLEAR_INTERMEDIATE_CFLAGS}${CLEAR_INTERMEDIATE_CFLAGS:+ }-m32 -mstackrealign"
+CXXFLAGS="${CLEAR_INTERMEDIATE_CXXFLAGS}${CLEAR_INTERMEDIATE_CXXFLAGS:+ }-m32 -mstackrealign"
+LDFLAGS="${CLEAR_INTERMEDIATE_LDFLAGS}${CLEAR_INTERMEDIATE_LDFLAGS:+ }-m32 -mstackrealign"
 %reconfigure --disable-static --with-ssl=/usr \
 --disable-ldap \
 --without-winidn \
@@ -204,11 +204,11 @@ make  %{?_smp_mflags}
 popd
 unset PKG_CONFIG_PATH
 pushd ../buildavx2/
-export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
-export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
-export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3"
-export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
-export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS -m64 -march=x86-64-v3 "
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS -m64 -march=x86-64-v3 "
 %reconfigure --disable-static --with-ssl=/usr \
 --disable-ldap \
 --without-winidn \
@@ -244,7 +244,18 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1694629117
+export GCC_IGNORE_WERROR=1
+CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CLEAR_INTERMEDIATE_CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
+CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS"
+CXXFLAGS="$CLEAR_INTERMEDIATE_CXXFLAGS"
+FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
+FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
+ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
+LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
+export SOURCE_DATE_EPOCH=1697037183
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
 cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/ce612120827185239dff94b8ac3a58a6c82a5578 || :
@@ -304,6 +315,7 @@ popd
 /usr/share/man/man3/CURLINFO_CONDITION_UNMET.3
 /usr/share/man/man3/CURLINFO_CONNECT_TIME.3
 /usr/share/man/man3/CURLINFO_CONNECT_TIME_T.3
+/usr/share/man/man3/CURLINFO_CONN_ID.3
 /usr/share/man/man3/CURLINFO_CONTENT_LENGTH_DOWNLOAD.3
 /usr/share/man/man3/CURLINFO_CONTENT_LENGTH_DOWNLOAD_T.3
 /usr/share/man/man3/CURLINFO_CONTENT_LENGTH_UPLOAD.3
@@ -364,6 +376,7 @@ popd
 /usr/share/man/man3/CURLINFO_TLS_SSL_PTR.3
 /usr/share/man/man3/CURLINFO_TOTAL_TIME.3
 /usr/share/man/man3/CURLINFO_TOTAL_TIME_T.3
+/usr/share/man/man3/CURLINFO_XFER_ID.3
 /usr/share/man/man3/CURLMOPT_CHUNK_LENGTH_PENALTY_SIZE.3
 /usr/share/man/man3/CURLMOPT_CONTENT_LENGTH_PENALTY_SIZE.3
 /usr/share/man/man3/CURLMOPT_MAXCONNECTS.3
@@ -575,6 +588,7 @@ popd
 /usr/share/man/man3/CURLOPT_PROXY_TLSAUTH_USERNAME.3
 /usr/share/man/man3/CURLOPT_PROXY_TRANSFER_MODE.3
 /usr/share/man/man3/CURLOPT_PUT.3
+/usr/share/man/man3/CURLOPT_QUICK_EXIT.3
 /usr/share/man/man3/CURLOPT_QUOTE.3
 /usr/share/man/man3/CURLOPT_RANDOM_FILE.3
 /usr/share/man/man3/CURLOPT_RANGE.3
@@ -609,6 +623,8 @@ popd
 /usr/share/man/man3/CURLOPT_SOCKS5_GSSAPI_SERVICE.3
 /usr/share/man/man3/CURLOPT_SSH_AUTH_TYPES.3
 /usr/share/man/man3/CURLOPT_SSH_COMPRESSION.3
+/usr/share/man/man3/CURLOPT_SSH_HOSTKEYDATA.3
+/usr/share/man/man3/CURLOPT_SSH_HOSTKEYFUNCTION.3
 /usr/share/man/man3/CURLOPT_SSH_HOST_PUBLIC_KEY_MD5.3
 /usr/share/man/man3/CURLOPT_SSH_HOST_PUBLIC_KEY_SHA256.3
 /usr/share/man/man3/CURLOPT_SSH_KEYDATA.3
@@ -734,6 +750,7 @@ popd
 /usr/share/man/man3/curl_multi_assign.3
 /usr/share/man/man3/curl_multi_cleanup.3
 /usr/share/man/man3/curl_multi_fdset.3
+/usr/share/man/man3/curl_multi_get_handles.3
 /usr/share/man/man3/curl_multi_info_read.3
 /usr/share/man/man3/curl_multi_init.3
 /usr/share/man/man3/curl_multi_perform.3
@@ -770,6 +787,7 @@ popd
 /usr/share/man/man3/curl_ws_recv.3
 /usr/share/man/man3/curl_ws_send.3
 /usr/share/man/man3/libcurl-easy.3
+/usr/share/man/man3/libcurl-env-dbg.3
 /usr/share/man/man3/libcurl-env.3
 /usr/share/man/man3/libcurl-errors.3
 /usr/share/man/man3/libcurl-multi.3
