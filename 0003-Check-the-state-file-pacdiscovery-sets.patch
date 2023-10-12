@@ -1,4 +1,4 @@
-From a08123a89a36368d46d683cd187bf8f0f78a1d01 Mon Sep 17 00:00:00 2001
+From cb01530a87f1f94dee50ea58095f5d610f84c7db Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Wed, 5 Jul 2023 14:17:53 -0700
 Subject: [PATCH] Check the state file pacdiscovery sets
@@ -10,11 +10,11 @@ Signed-off-by: Tudor Marcu <tudor.marcu@intel.com>
 Signed-off-by: Arzhan Kinzhalin <arzhan.i.kinzhalin@intel.com>
 Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
 ---
- lib/url.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+ lib/url.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
 diff --git a/lib/url.c b/lib/url.c
-index 55b4053785e6..0ee5375a918c 100644
+index 55b4053785e6..62b311eb4652 100644
 --- a/lib/url.c
 +++ b/lib/url.c
 @@ -63,6 +63,8 @@
@@ -34,7 +34,7 @@ index 55b4053785e6..0ee5375a918c 100644
  
    /* Now, build <protocol>_proxy and check for such a one to use */
    while(*protop)
-@@ -2132,11 +2135,15 @@ static char *detect_proxy(struct Curl_easy *data,
+@@ -2132,13 +2135,17 @@ static char *detect_proxy(struct Curl_easy *data,
      }
      if(!proxy) {
  #endif
@@ -49,10 +49,14 @@ index 55b4053785e6..0ee5375a918c 100644
 +        autoproxy_ret = query_pacrunner_proxy(url,
                            conn->host.name,
                            proxy_tmp);
+-      if (!autoproxy_ret)
+-          proxy = strndup(proxy_tmp, 256);
++        if (!autoproxy_ret)
++            proxy = strndup(proxy_tmp, 256);
 +      }
-       if (!autoproxy_ret)
-           proxy = strndup(proxy_tmp, 256);
      }
+ 
+     if(!proxy) {
 -- 
 2.42.0
 
