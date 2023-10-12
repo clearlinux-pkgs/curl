@@ -7,7 +7,7 @@
 #
 Name     : curl
 Version  : 8.4.0
-Release  : 145
+Release  : 146
 URL      : https://github.com/curl/curl/releases/download/curl-8_4_0/curl-8.4.0.tar.xz
 Source0  : https://github.com/curl/curl/releases/download/curl-8_4_0/curl-8.4.0.tar.xz
 Source1  : https://github.com/curl/curl/releases/download/curl-8_4_0/curl-8.4.0.tar.xz.asc
@@ -51,7 +51,10 @@ BuildRequires : zstd-dev32
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
-Patch1: 0004-Avoid-stripping-the-g-option.patch
+Patch1: 0002-Add-pacrunner-call-for-autoproxy-resolution.patch
+Patch2: 0003-Check-the-state-file-pacdiscovery-sets.patch
+Patch3: 0004-Avoid-stripping-the-g-option.patch
+Patch4: 0005-Open-library-file-descriptors-with-O_CLOEXEC.patch
 
 %description
 curl is used in command lines or scripts to transfer data. It is also used in
@@ -129,6 +132,9 @@ man components for the curl package.
 %setup -q -n curl-8.4.0
 cd %{_builddir}/curl-8.4.0
 %patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 3 -p1
+%patch -P 4 -p1
 pushd ..
 cp -a curl-8.4.0 build32
 popd
@@ -141,7 +147,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1697037183
+export SOURCE_DATE_EPOCH=1697135582
 export GCC_IGNORE_WERROR=1
 CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
@@ -255,7 +261,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1697037183
+export SOURCE_DATE_EPOCH=1697135582
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/curl
 cp %{_builddir}/curl-%{version}/COPYING %{buildroot}/usr/share/package-licenses/curl/ce612120827185239dff94b8ac3a58a6c82a5578 || :

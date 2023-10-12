@@ -1,4 +1,4 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From d2d29d0b5e42e1a820f6d1777818b2992424c872 Mon Sep 17 00:00:00 2001
 From: Thiago Macieira <thiago.macieira@intel.com>
 Date: Mon, 10 Sep 2018 21:01:00 -0700
 Subject: [PATCH] Open library file descriptors with O_CLOEXEC
@@ -12,18 +12,17 @@ compile time is not enough.
 
 Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
 ---
- configure.ac  | 2 ++
- lib/connect.c | 2 +-
- lib/file.c    | 4 ++--
- lib/hostip.c  | 4 ++--
- lib/if2ip.c   | 2 +-
- 5 files changed, 8 insertions(+), 6 deletions(-)
+ configure.ac | 2 ++
+ lib/file.c   | 4 ++--
+ lib/hostip.c | 4 ++--
+ lib/if2ip.c  | 2 +-
+ 4 files changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index d8dcec8..4db5db2 100644
+index a934f903566f..8d88bcd45f6c 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -339,6 +339,8 @@ AC_DEFINE_UNQUOTED(OS, "${host}", [cpu-machine-OS])
+@@ -430,6 +430,8 @@ AC_DEFINE_UNQUOTED(OS, "${host}", [cpu-machine-OS])
  # Silence warning: ar: 'u' modifier ignored since 'D' is the default
  AC_SUBST(AR_FLAGS, [cr])
  
@@ -33,10 +32,10 @@ index d8dcec8..4db5db2 100644
  CURL_CHECK_AIX_ALL_SOURCE
  
 diff --git a/lib/file.c b/lib/file.c
-index dd8a1fd..5d6cabd 100644
+index ffa9fb76d06f..b9a2a864a61a 100644
 --- a/lib/file.c
 +++ b/lib/file.c
-@@ -222,7 +222,7 @@ static CURLcode file_connect(struct Curl_easy *data, bool *done)
+@@ -232,7 +232,7 @@ static CURLcode file_connect(struct Curl_easy *data, bool *done)
      }
    }
    #else
@@ -45,7 +44,7 @@ index dd8a1fd..5d6cabd 100644
    file->path = real_path;
    #endif
  #endif
-@@ -307,7 +307,7 @@ static CURLcode file_upload(struct Curl_easy *data)
+@@ -318,7 +318,7 @@ static CURLcode file_upload(struct Curl_easy *data)
    else
      mode = MODE_DEFAULT|O_TRUNC;
  
@@ -55,19 +54,19 @@ index dd8a1fd..5d6cabd 100644
      failf(data, "Can't open %s for writing", file->path);
      return CURLE_WRITE_ERROR;
 diff --git a/lib/hostip.c b/lib/hostip.c
-index 117caa2..a451d81 100644
+index 3cd9a65c50bd..f64b1da5669e 100644
 --- a/lib/hostip.c
 +++ b/lib/hostip.c
-@@ -51,7 +51,7 @@
- #ifdef HAVE_PROCESS_H
- #include <process.h>
- #endif
+@@ -43,7 +43,7 @@
+ 
+ #include <setjmp.h>
+ #include <signal.h>
 -
 +#include <fcntl.h>
  #include "urldata.h"
  #include "sendf.h"
  #include "hostip.h"
-@@ -580,7 +580,7 @@ bool Curl_ipv6works(struct Curl_easy *data)
+@@ -609,7 +609,7 @@ bool Curl_ipv6works(struct Curl_easy *data)
    else {
      int ipv6_works = -1;
      /* probe to see if we have a working IPv6 stack */
@@ -77,10 +76,10 @@ index 117caa2..a451d81 100644
        /* an IPv6 address was requested but we can't get/use one */
        ipv6_works = 0;
 diff --git a/lib/if2ip.c b/lib/if2ip.c
-index 21e00b1..14020bc 100644
+index 5249f6cc7eb4..1e4644ea4998 100644
 --- a/lib/if2ip.c
 +++ b/lib/if2ip.c
-@@ -206,7 +206,7 @@ if2ip_result_t Curl_if2ip(int af,
+@@ -208,7 +208,7 @@ if2ip_result_t Curl_if2ip(int af,
    if(len >= sizeof(req.ifr_name))
      return IF2IP_NOT_FOUND;
  
@@ -89,3 +88,6 @@ index 21e00b1..14020bc 100644
    if(CURL_SOCKET_BAD == dummy)
      return IF2IP_NOT_FOUND;
  
+-- 
+2.42.0
+

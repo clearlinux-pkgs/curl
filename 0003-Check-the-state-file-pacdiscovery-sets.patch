@@ -1,4 +1,4 @@
-From 5e145a8dc6d7249068914fbd557ef4ac87c5550b Mon Sep 17 00:00:00 2001
+From a08123a89a36368d46d683cd187bf8f0f78a1d01 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Wed, 5 Jul 2023 14:17:53 -0700
 Subject: [PATCH] Check the state file pacdiscovery sets
@@ -10,11 +10,11 @@ Signed-off-by: Tudor Marcu <tudor.marcu@intel.com>
 Signed-off-by: Arzhan Kinzhalin <arzhan.i.kinzhalin@intel.com>
 Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
 ---
- lib/url.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ lib/url.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/lib/url.c b/lib/url.c
-index 7b378d7..9dd92d3 100644
+index 55b4053785e6..0ee5375a918c 100644
 --- a/lib/url.c
 +++ b/lib/url.c
 @@ -63,6 +63,8 @@
@@ -26,7 +26,7 @@ index 7b378d7..9dd92d3 100644
  
  #include <limits.h>
  
-@@ -2073,6 +2075,7 @@ static char *detect_proxy(struct Curl_easy *data,
+@@ -2089,6 +2091,7 @@ static char *detect_proxy(struct Curl_easy *data,
  #ifdef CURL_DISABLE_VERBOSE_STRINGS
    (void)data;
  #endif
@@ -34,17 +34,25 @@ index 7b378d7..9dd92d3 100644
  
    /* Now, build <protocol>_proxy and check for such a one to use */
    while(*protop)
-@@ -2106,7 +2109,9 @@ static char *detect_proxy(struct Curl_easy *data,
-   if(prox) {
-     proxy = prox; /* use this */
-   }
--  if(!proxy) {
-+  /* Check that no proxy is set AND that pacdiscovery has set pacrunner
-+   * with a PAC script */
-+  if(!proxy && stat(PROXY_STATE_FILE, &sbuff) == 0) {
-     /* No protocol-specific proxy set in the environment.
-      *     Fallback to pacrunner autoproxy lookup */
-     autoproxy_ret = query_pacrunner_proxy(url,
+@@ -2132,11 +2135,15 @@ static char *detect_proxy(struct Curl_easy *data,
+     }
+     if(!proxy) {
+ #endif
+-      /* No protocol-specific proxy set in the environment.
+-       *     Fallback to pacrunner autoproxy lookup */
+-      autoproxy_ret = query_pacrunner_proxy(url,
++      /* Check that no proxy is set AND that pacdiscovery has set pacrunner
++       * with a PAC script */
++      if (stat(PROXY_STATE_FILE, &sbuff) == 0) {
++        /* No protocol-specific proxy set in the environment.
++         *     Fallback to pacrunner autoproxy lookup */
++        autoproxy_ret = query_pacrunner_proxy(url,
+                           conn->host.name,
+                           proxy_tmp);
++      }
+       if (!autoproxy_ret)
+           proxy = strndup(proxy_tmp, 256);
+     }
 -- 
-2.41.0
+2.42.0
 
