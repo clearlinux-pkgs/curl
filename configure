@@ -18,3 +18,4 @@
 --disable-gopher
 --enable-negotiate
 --with-libproxy
+--without-libpsl

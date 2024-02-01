@@ -9,7 +9,7 @@
 #
 Name     : curl
 Version  : 8.6.0
-Release  : 151
+Release  : 152
 URL      : https://github.com/curl/curl/releases/download/curl-8_6_0/curl-8.6.0.tar.xz
 Source0  : https://github.com/curl/curl/releases/download/curl-8_6_0/curl-8.6.0.tar.xz
 Source1  : https://github.com/curl/curl/releases/download/curl-8_6_0/curl-8.6.0.tar.xz.asc
@@ -39,8 +39,6 @@ BuildRequires : libc6
 BuildRequires : libidn-dev
 BuildRequires : libidn-dev32
 BuildRequires : libproxy-dev
-BuildRequires : libpsl-dev
-BuildRequires : libpsl-dev32
 BuildRequires : nghttp2-dev
 BuildRequires : nghttp2-dev32
 BuildRequires : nghttp3-dev
@@ -139,7 +137,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1706732012
+export SOURCE_DATE_EPOCH=1706800645
 export GCC_IGNORE_WERROR=1
 CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
@@ -170,7 +168,8 @@ LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
 --disable-pop3 \
 --disable-gopher \
 --enable-negotiate \
---with-libproxy --with-gssapi=/usr
+--with-libproxy \
+--without-libpsl --with-gssapi=/usr
 make  %{?_smp_mflags}
 pushd ../build32/
 export PKG_CONFIG_PATH="/usr/lib32/pkgconfig:/usr/share/pkgconfig"
@@ -197,7 +196,8 @@ LDFLAGS="${CLEAR_INTERMEDIATE_LDFLAGS}${CLEAR_INTERMEDIATE_LDFLAGS:+ }-m32 -msta
 --disable-pop3 \
 --disable-gopher \
 --enable-negotiate \
---with-libproxy --without-libproxy --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
+--with-libproxy \
+--without-libpsl --without-libproxy --libdir=/usr/lib32 --build=i686-generic-linux-gnu --host=i686-generic-linux-gnu --target=i686-clr-linux-gnu
 make  %{?_smp_mflags}
 popd
 unset PKG_CONFIG_PATH
@@ -226,7 +226,8 @@ LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS -march=x86-64-v3 "
 --disable-pop3 \
 --disable-gopher \
 --enable-negotiate \
---with-libproxy
+--with-libproxy \
+--without-libpsl
 make  %{?_smp_mflags}
 popd
 
@@ -253,7 +254,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1706732012
+export SOURCE_DATE_EPOCH=1706800645
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
