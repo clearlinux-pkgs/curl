@@ -31,17 +31,11 @@ Configure miss: clock_gettime in libraries
 Configure miss: code coverage support
 Configure miss: code coverage support
 Configure miss: code coverage support
-Configure miss: fish options with pkg-config
-Configure miss: fish options with pkg-config
-Configure miss: fish options with pkg-config
 Configure miss: gcc option to enable large file support
 Configure miss: gcc option to enable large file support
 Configure miss: gcc options needed to detect all undeclared functions
 Configure miss: gcc options needed to detect all undeclared functions
 Configure miss: gcc options needed to detect all undeclared functions
-Configure miss: gnroff
-Configure miss: gnroff
-Configure miss: gnroff
 Configure miss: good-to-use Darwin CFLAGS
 Configure miss: good-to-use Darwin CFLAGS
 Configure miss: good-to-use Darwin CFLAGS
