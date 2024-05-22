@@ -22,9 +22,6 @@ Configure miss: apxs
 Configure miss: brotli/decode.h
 Configure miss: brotli/decode.h
 Configure miss: brotli/decode.h
-Configure miss: caddy
-Configure miss: caddy
-Configure miss: caddy
 Configure miss: clock_gettime in libraries
 Configure miss: clock_gettime in libraries
 Configure miss: clock_gettime in libraries
@@ -129,9 +126,9 @@ Configure miss: whether to enable Amiga native SSL/TLS (AmiSSL v5)
 Configure miss: whether to enable ECH support
 Configure miss: whether to enable ECH support
 Configure miss: whether to enable ECH support
-Configure miss: whether to enable NTLM delegation to winbind's helper
-Configure miss: whether to enable NTLM delegation to winbind's helper
-Configure miss: whether to enable NTLM delegation to winbind's helper
+Configure miss: whether to enable HTTPSRR support
+Configure miss: whether to enable HTTPSRR support
+Configure miss: whether to enable HTTPSRR support
 Configure miss: whether to enable SSPI support (Windows native builds only)
 Configure miss: whether to enable SSPI support (Windows native builds only)
 Configure miss: whether to enable SSPI support (Windows native builds only)
