@@ -97,9 +97,6 @@ Configure miss: socket.h
 Configure miss: stropts.h
 Configure miss: stropts.h
 Configure miss: stropts.h
-Configure miss: to see if the compiler supports __builtin_available()
-Configure miss: to see if the compiler supports __builtin_available()
-Configure miss: to see if the compiler supports __builtin_available()
 Configure miss: whether build target is a native Windows one
 Configure miss: whether build target is a native Windows one
 Configure miss: whether build target is a native Windows one
