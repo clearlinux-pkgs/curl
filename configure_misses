@@ -7,6 +7,9 @@ Configure miss: BoringSSL
 Configure miss: BrotliDecoderDecompress in -lbrotlidec
 Configure miss: BrotliDecoderDecompress in -lbrotlidec
 Configure miss: BrotliDecoderDecompress in -lbrotlidec
+Configure miss: CA cert bundle path to embed
+Configure miss: CA cert bundle path to embed
+Configure miss: CA cert bundle path to embed
 Configure miss: LibreSSL
 Configure miss: LibreSSL
 Configure miss: LibreSSL
@@ -100,12 +103,12 @@ Configure miss: stropts.h
 Configure miss: whether build target is a native Windows one
 Configure miss: whether build target is a native Windows one
 Configure miss: whether build target is a native Windows one
-Configure miss: whether build target supports WIN32 crypto API
-Configure miss: whether build target supports WIN32 crypto API
-Configure miss: whether build target supports WIN32 crypto API
-Configure miss: whether build target supports WIN32 file API
-Configure miss: whether build target supports WIN32 file API
-Configure miss: whether build target supports WIN32 file API
+Configure miss: whether build target supports Win32 crypto API
+Configure miss: whether build target supports Win32 crypto API
+Configure miss: whether build target supports Win32 crypto API
+Configure miss: whether build target supports Win32 file API
+Configure miss: whether build target supports Win32 file API
+Configure miss: whether build target supports Win32 file API
 Configure miss: whether to build shared libraries with -mimpure-text
 Configure miss: whether to build shared libraries with -mimpure-text
 Configure miss: whether to build shared libraries with -mimpure-text
@@ -131,9 +134,6 @@ Configure miss: whether to enable SSPI support (Windows native builds only)
 Configure miss: whether to enable Secure Transport
 Configure miss: whether to enable Secure Transport
 Configure miss: whether to enable Secure Transport
-Configure miss: whether to enable Windows native IDN (Windows native builds only)
-Configure miss: whether to enable Windows native IDN (Windows native builds only)
-Configure miss: whether to enable Windows native IDN (Windows native builds only)
 Configure miss: whether to enable Windows native SSL/TLS
 Configure miss: whether to enable Windows native SSL/TLS
 Configure miss: whether to enable Windows native SSL/TLS
@@ -182,9 +182,9 @@ Configure miss: whether to support telnet
 Configure miss: whether to support tftp
 Configure miss: whether to support tftp
 Configure miss: whether to support tftp
-Configure miss: whether to use builtin CA store of SSL library
-Configure miss: whether to use builtin CA store of SSL library
-Configure miss: whether to use builtin CA store of SSL library
+Configure miss: whether to use built-in CA store of SSL library
+Configure miss: whether to use built-in CA store of SSL library
+Configure miss: whether to use built-in CA store of SSL library
 Configure miss: whether to use libgcc
 Configure miss: whether to use libgcc
 Configure miss: whether to use libgcc
