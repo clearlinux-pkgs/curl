@@ -7,9 +7,9 @@ Configure miss: BoringSSL
 Configure miss: BrotliDecoderDecompress in -lbrotlidec
 Configure miss: BrotliDecoderDecompress in -lbrotlidec
 Configure miss: BrotliDecoderDecompress in -lbrotlidec
-Configure miss: CA cert bundle path to embed
-Configure miss: CA cert bundle path to embed
-Configure miss: CA cert bundle path to embed
+Configure miss: CA cert bundle path to embed in the curl tool
+Configure miss: CA cert bundle path to embed in the curl tool
+Configure miss: CA cert bundle path to embed in the curl tool
 Configure miss: LibreSSL
 Configure miss: LibreSSL
 Configure miss: LibreSSL
@@ -94,9 +94,6 @@ Configure miss: nghttpx
 Configure miss: proto/bsdsocket.h
 Configure miss: proto/bsdsocket.h
 Configure miss: proto/bsdsocket.h
-Configure miss: socket.h
-Configure miss: socket.h
-Configure miss: socket.h
 Configure miss: stropts.h
 Configure miss: stropts.h
 Configure miss: stropts.h
@@ -109,6 +106,9 @@ Configure miss: whether build target supports Win32 crypto API
 Configure miss: whether build target supports Win32 file API
 Configure miss: whether build target supports Win32 file API
 Configure miss: whether build target supports Win32 file API
+Configure miss: whether to build libcurl and curl in "unity" mode
+Configure miss: whether to build libcurl and curl in "unity" mode
+Configure miss: whether to build libcurl and curl in "unity" mode
 Configure miss: whether to build shared libraries with -mimpure-text
 Configure miss: whether to build shared libraries with -mimpure-text
 Configure miss: whether to build shared libraries with -mimpure-text
@@ -119,6 +119,9 @@ Configure miss: whether to build static libraries only
 Configure miss: whether to build static libraries only
 Configure miss: whether to build static libraries only
 Configure miss: whether to build static libraries with PIC
+Configure miss: whether to build tests into single-binary bundles
+Configure miss: whether to build tests into single-binary bundles
+Configure miss: whether to build tests into single-binary bundles
 Configure miss: whether to enable Amiga native SSL/TLS (AmiSSL v5)
 Configure miss: whether to enable Amiga native SSL/TLS (AmiSSL v5)
 Configure miss: whether to enable Amiga native SSL/TLS (AmiSSL v5)
@@ -155,9 +158,6 @@ Configure miss: whether to enable strict compiler warnings
 Configure miss: whether to link macOS CoreFoundation, CoreServices, and SystemConfiguration frameworks
 Configure miss: whether to link macOS CoreFoundation, CoreServices, and SystemConfiguration frameworks
 Configure miss: whether to link macOS CoreFoundation, CoreServices, and SystemConfiguration frameworks
-Configure miss: whether to support WebSockets
-Configure miss: whether to support WebSockets
-Configure miss: whether to support WebSockets
 Configure miss: whether to support gopher
 Configure miss: whether to support gopher
 Configure miss: whether to support gopher

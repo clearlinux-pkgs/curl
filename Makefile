@@ -1,5 +1,5 @@
 PKG_NAME := curl
-URL = https://github.com/curl/curl/releases/download/curl-8_10_1/curl-8.10.1.tar.gz
+URL = https://github.com/curl/curl/releases/download/curl-8_11_0/curl-8.11.0.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
