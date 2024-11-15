@@ -3,3 +3,4 @@
 0003-Check-the-state-file-pacdiscovery-sets.patch
 0004-Avoid-stripping-the-g-option.patch
 0005-Open-library-file-descriptors-with-O_CLOEXEC.patch
+backport-15496-netrc.patch
