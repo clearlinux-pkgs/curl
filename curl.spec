@@ -8,11 +8,11 @@
 # Source0 file verified with key 0x5CC908FDB71E12C2 (daniel@haxx.se)
 #
 Name     : curl
-Version  : 8.11.0
-Release  : 166
-URL      : https://github.com/curl/curl/releases/download/curl-8_11_0/curl-8.11.0.tar.gz
-Source0  : https://github.com/curl/curl/releases/download/curl-8_11_0/curl-8.11.0.tar.gz
-Source1  : https://github.com/curl/curl/releases/download/curl-8_11_0/curl-8.11.0.tar.gz.asc
+Version  : 8.11.1
+Release  : 167
+URL      : https://github.com/curl/curl/releases/download/curl-8_11_1/curl-8.11.1.tar.gz
+Source0  : https://github.com/curl/curl/releases/download/curl-8_11_1/curl-8.11.1.tar.gz
+Source1  : https://github.com/curl/curl/releases/download/curl-8_11_1/curl-8.11.1.tar.gz.asc
 Source2  : 5CC908FDB71E12C2.pkey
 Summary  : Command line tool and library for transferring data with URLs
 Group    : Development/Tools
@@ -60,8 +60,6 @@ Patch1: 0002-Add-pacrunner-call-for-autoproxy-resolution.patch
 Patch2: 0003-Check-the-state-file-pacdiscovery-sets.patch
 Patch3: 0004-Avoid-stripping-the-g-option.patch
 Patch4: 0005-Open-library-file-descriptors-with-O_CLOEXEC.patch
-Patch5: backport-15496-netrc.patch
-Patch6: backport-setopt-fix.patch
 
 %description
 curl is used in command lines or scripts to transfer data. It is also used in
@@ -130,19 +128,17 @@ chmod 700 .gnupg
 gpg --homedir .gnupg --import %{SOURCE2}
 gpg --homedir .gnupg --status-fd 1 --verify %{SOURCE1} %{SOURCE0} > gpg.status
 grep -E '^\[GNUPG:\] (GOODSIG|EXPKEYSIG) 5CC908FDB71E12C2' gpg.status
-%setup -q -n curl-8.11.0
-cd %{_builddir}/curl-8.11.0
+%setup -q -n curl-8.11.1
+cd %{_builddir}/curl-8.11.1
 %patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 3 -p1
 %patch -P 4 -p1
-%patch -P 5 -p1
-%patch -P 6 -p1
 pushd ..
-cp -a curl-8.11.0 build32
+cp -a curl-8.11.1 build32
 popd
 pushd ..
-cp -a curl-8.11.0 buildavx2
+cp -a curl-8.11.1 buildavx2
 popd
 
 %build
@@ -150,7 +146,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1733422095
+export SOURCE_DATE_EPOCH=1735078636
 export GCC_IGNORE_WERROR=1
 CLEAR_INTERMEDIATE_CFLAGS="$CLEAR_INTERMEDIATE_CFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 CLEAR_INTERMEDIATE_FCFLAGS="$CLEAR_INTERMEDIATE_FFLAGS -Os -fdata-sections -fdebug-types-section -femit-struct-debug-baseonly -ffunction-sections -fno-lto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
@@ -269,7 +265,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1733422095
+export SOURCE_DATE_EPOCH=1735078636
 rm -rf %{buildroot}
 export GOAMD64=v2
 pushd ../build32/

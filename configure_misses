@@ -19,9 +19,6 @@ Configure miss: RTMP_Init in -lrtmp
 Configure miss: SSL_set_quic_use_legacy_codepoint
 Configure miss: SSL_set_quic_use_legacy_codepoint
 Configure miss: SSL_set_quic_use_legacy_codepoint
-Configure miss: _fseeki64
-Configure miss: _fseeki64
-Configure miss: _fseeki64
 Configure miss: apxs
 Configure miss: apxs
 Configure miss: apxs
