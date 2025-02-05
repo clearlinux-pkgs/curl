@@ -100,9 +100,6 @@ Configure miss: whether build target is a native Windows one
 Configure miss: whether build target supports Win32 crypto API
 Configure miss: whether build target supports Win32 crypto API
 Configure miss: whether build target supports Win32 crypto API
-Configure miss: whether build target supports Win32 file API
-Configure miss: whether build target supports Win32 file API
-Configure miss: whether build target supports Win32 file API
 Configure miss: whether to build libcurl and curl in "unity" mode
 Configure miss: whether to build libcurl and curl in "unity" mode
 Configure miss: whether to build libcurl and curl in "unity" mode
@@ -128,6 +125,9 @@ Configure miss: whether to enable ECH support
 Configure miss: whether to enable HTTPSRR support
 Configure miss: whether to enable HTTPSRR support
 Configure miss: whether to enable HTTPSRR support
+Configure miss: whether to enable SSL session export support
+Configure miss: whether to enable SSL session export support
+Configure miss: whether to enable SSL session export support
 Configure miss: whether to enable SSPI support (Windows native builds only)
 Configure miss: whether to enable SSPI support (Windows native builds only)
 Configure miss: whether to enable SSPI support (Windows native builds only)
