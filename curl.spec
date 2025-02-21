@@ -9,7 +9,7 @@
 #
 Name     : curl
 Version  : 8.12.1
-Release  : 170
+Release  : 171
 URL      : https://github.com/curl/curl/releases/download/curl-8_12_1/curl-8.12.1.tar.gz
 Source0  : https://github.com/curl/curl/releases/download/curl-8_12_1/curl-8.12.1.tar.gz
 Source1  : https://github.com/curl/curl/releases/download/curl-8_12_1/curl-8.12.1.tar.gz.asc
