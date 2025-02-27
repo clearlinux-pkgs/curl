@@ -103,6 +103,9 @@ Configure miss: whether build target supports Win32 crypto API
 Configure miss: whether to build libcurl and curl in "unity" mode
 Configure miss: whether to build libcurl and curl in "unity" mode
 Configure miss: whether to build libcurl and curl in "unity" mode
+Configure miss: whether to build shared libraries only
+Configure miss: whether to build shared libraries only
+Configure miss: whether to build shared libraries only
 Configure miss: whether to build shared libraries with -mimpure-text
 Configure miss: whether to build shared libraries with -mimpure-text
 Configure miss: whether to build shared libraries with -mimpure-text
