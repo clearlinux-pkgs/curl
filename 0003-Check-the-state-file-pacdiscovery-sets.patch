@@ -1,4 +1,4 @@
-From cb01530a87f1f94dee50ea58095f5d610f84c7db Mon Sep 17 00:00:00 2001
+From 755f10a7998e1b01c7777598eba6da63d86f446e Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Wed, 5 Jul 2023 14:17:53 -0700
 Subject: [PATCH] Check the state file pacdiscovery sets
@@ -14,7 +14,7 @@ Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
  1 file changed, 12 insertions(+), 5 deletions(-)
 
 diff --git a/lib/url.c b/lib/url.c
-index 55b4053785e6..62b311eb4652 100644
+index c888034..373c8b5 100644
 --- a/lib/url.c
 +++ b/lib/url.c
 @@ -63,6 +63,8 @@
@@ -26,15 +26,15 @@ index 55b4053785e6..62b311eb4652 100644
  
  #include <limits.h>
  
-@@ -2089,6 +2091,7 @@ static char *detect_proxy(struct Curl_easy *data,
+@@ -2187,6 +2189,7 @@ static char *detect_proxy(struct Curl_easy *data,
  #ifdef CURL_DISABLE_VERBOSE_STRINGS
    (void)data;
  #endif
 +  struct stat sbuff;
  
-   /* Now, build <protocol>_proxy and check for such a one to use */
-   while(*protop)
-@@ -2132,13 +2135,17 @@ static char *detect_proxy(struct Curl_easy *data,
+   msnprintf(proxy_env, sizeof(proxy_env), "%s_proxy", conn->handler->scheme);
+ 
+@@ -2224,13 +2227,17 @@ static char *detect_proxy(struct Curl_easy *data,
      }
      if(!proxy) {
  #endif
@@ -58,5 +58,5 @@ index 55b4053785e6..62b311eb4652 100644
  
      if(!proxy) {
 -- 
-2.42.0
+2.49.0
 

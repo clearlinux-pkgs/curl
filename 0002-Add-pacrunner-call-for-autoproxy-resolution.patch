@@ -1,4 +1,4 @@
-From 25ad8fb3c06e4e285982fab40588adf00d8e66f8 Mon Sep 17 00:00:00 2001
+From c1cd2c0fe01c4d25720f09990c236bd9b90f1c2a Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Wed, 5 Jul 2023 14:12:38 -0700
 Subject: [PATCH] Add pacrunner call for autoproxy resolution
@@ -21,44 +21,57 @@ Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
 Signed-off-by: William Douglas <william.douglas@intel.com>
 ---
  configure.ac    |   2 +
- lib/Makefile.am |   4 +-
+ lib/Makefile.am |  10 ++--
  lib/url.c       | 131 ++++++++++++++++++++++++++++++++++++++++++++++--
- 3 files changed, 132 insertions(+), 5 deletions(-)
+ 3 files changed, 136 insertions(+), 7 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 2d71c838f86b..dc9071ce2704 100644
+index 9a5dd60..ba8f449 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -43,6 +43,8 @@ AC_CONFIG_MACRO_DIR([m4])
+@@ -44,6 +44,8 @@ AC_CONFIG_MACRO_DIR([m4])
  AM_MAINTAINER_MODE
  m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
  
 +PKG_CHECK_MODULES([DBUS], [dbus-1])
 +
  CURL_CHECK_OPTION_DEBUG
+ AM_CONDITIONAL(DEBUGBUILD, test x$want_debug = xyes)
  CURL_CHECK_OPTION_OPTIMIZE
- CURL_CHECK_OPTION_WARNINGS
 diff --git a/lib/Makefile.am b/lib/Makefile.am
-index 3c0a709127dc..4329138aa9c3 100644
+index 463b72e..3a13fe5 100644
 --- a/lib/Makefile.am
 +++ b/lib/Makefile.am
-@@ -71,8 +71,8 @@ libcurl_la_SOURCES = $(CSOURCES) $(HHEADERS)
- libcurlu_la_SOURCES = $(CSOURCES) $(HHEADERS)
+@@ -99,8 +99,10 @@ libcurlu_la_SOURCES = $(CSOURCES) $(HHEADERS)
+ endif
  
  libcurl_la_CPPFLAGS_EXTRA =
 -libcurl_la_LDFLAGS_EXTRA =
 -libcurl_la_CFLAGS_EXTRA =
 +libcurl_la_LDFLAGS_EXTRA = $(DBUS_LIBS)
 +libcurl_la_CFLAGS_EXTRA = $(DBUS_CFLAGS)
++libcurllu_la_LDFLAGS_EXTRA = $(DBUS_LIBS)
++libcurllu_la_CFLAGS_EXTRA = $(DBUS_CFLAGS)
  
  if CURL_LT_SHLIB_USE_VERSION_INFO
  libcurl_la_LDFLAGS_EXTRA += $(VERSIONINFO)
+@@ -142,8 +144,8 @@ libcurl_la_LDFLAGS = $(AM_LDFLAGS) $(libcurl_la_LDFLAGS_EXTRA) $(CURL_LDFLAGS_LI
+ libcurl_la_CFLAGS = $(AM_CFLAGS) $(libcurl_la_CFLAGS_EXTRA)
+ 
+ libcurlu_la_CPPFLAGS = $(AM_CPPFLAGS) -DCURL_STATICLIB -DUNITTESTS
+-libcurlu_la_LDFLAGS = $(AM_LDFLAGS) -static $(LIBCURL_PC_LIBS_PRIVATE)
+-libcurlu_la_CFLAGS = $(AM_CFLAGS)
++libcurlu_la_LDFLAGS = $(AM_LDFLAGS) $(libcurllu_la_LDFLAGS_EXTRA) -static $(LIBCURL_PC_LIBS_PRIVATE)
++libcurlu_la_CFLAGS = $(AM_CFLAGS) $(libcurllu_la_CFLAGS_EXTRA)
+ 
+ CHECKSRC = $(CS_$(V))
+ CS_0 = @echo "  RUN     " $@;
 diff --git a/lib/url.c b/lib/url.c
-index 61dad442ddbf..55b4053785e6 100644
+index 10e37ec..c888034 100644
 --- a/lib/url.c
 +++ b/lib/url.c
 @@ -59,6 +59,11 @@
- #error "We can't compile without socket() support!"
+ #error "We cannot compile without socket() support!"
  #endif
  
 +#ifndef CURL_DISABLE_PROXY
@@ -69,7 +82,7 @@ index 61dad442ddbf..55b4053785e6 100644
  #include <limits.h>
  
  #include "doh.h"
-@@ -150,6 +155,8 @@ static void data_priority_cleanup(struct Curl_easy *data);
+@@ -147,6 +152,8 @@ static void data_priority_cleanup(struct Curl_easy *data);
  /* Reject URLs exceeding this length */
  #define MAX_URL_LEN 0xffff
  
@@ -78,7 +91,7 @@ index 61dad442ddbf..55b4053785e6 100644
  /*
  * get_protocol_family()
  *
-@@ -2052,9 +2059,12 @@ void Curl_free_request_state(struct Curl_easy *data)
+@@ -2151,9 +2158,12 @@ static CURLcode setup_connection_internals(struct Curl_easy *data,
  * The returned pointer must be freed by the caller (unless NULL)
  ****************************************************************/
  static char *detect_proxy(struct Curl_easy *data,
@@ -92,7 +105,7 @@ index 61dad442ddbf..55b4053785e6 100644
  
    /* If proxy was not specified, we check for default proxy environment
     * variables, to enable i.e Lynx compliance:
-@@ -2122,6 +2132,16 @@ static char *detect_proxy(struct Curl_easy *data,
+@@ -2214,6 +2224,16 @@ static char *detect_proxy(struct Curl_easy *data,
      }
      if(!proxy) {
  #endif
@@ -106,10 +119,10 @@ index 61dad442ddbf..55b4053785e6 100644
 +    }
 +
 +    if(!proxy) {
-       envp = (char *)"all_proxy";
+       envp = "all_proxy";
        proxy = curl_getenv(envp); /* default proxy to use */
        if(!proxy) {
-@@ -2430,10 +2450,12 @@ static CURLcode create_conn_helper_init_proxy(struct Curl_easy *data,
+@@ -2523,10 +2543,12 @@ static CURLcode create_conn_helper_init_proxy(struct Curl_easy *data,
      Curl_safefree(proxy);
      Curl_safefree(socksproxy);
    }
@@ -122,10 +135,10 @@ index 61dad442ddbf..55b4053785e6 100644
 +#else  /* !CURL_DISABLE_HTTP */
 +    proxy = NULL;
  #endif /* CURL_DISABLE_HTTP */
-   if(spacesep)
-     infof(data, "space-separated NOPROXY patterns are deprecated");
-@@ -3367,6 +3389,109 @@ static void reuse_conn(struct Curl_easy *data,
-   conn_free(data, temp);
+   Curl_safefree(no_proxy);
+ 
+@@ -3438,6 +3460,109 @@ static void conn_meta_freeentry(void *p)
+   DEBUGASSERT(p == NULL);
  }
  
 +/**
@@ -233,7 +246,7 @@ index 61dad442ddbf..55b4053785e6 100644
 +
  /**
   * create_conn() sets up a new connectdata struct, or reuses an already
-  * existing one, and resolves host name.
+  * existing one, and resolves hostname.
 -- 
-2.42.0
+2.49.0
 
